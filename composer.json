@@ -1,6 +1,6 @@
 {
     "name": "lion-framework/lion-mailer",
-    "description": "library created for easy email sending based on PHPMailer.",
+    "description": "Library created for easy email sending based on PHPMailer.",
     "type": "library",
     "license": "MIT",
     "autoload": {
@@ -14,5 +14,7 @@
             "email": "56183278+Sleon4@users.noreply.github.com"
         }
     ],
-    "require": {}
+    "require": {
+        "phpmailer/phpmailer": "^6.6"
+    }
 }
