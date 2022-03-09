@@ -50,7 +50,7 @@ class Mailer {
 
 		if ($attach->getAddAttachment() != null) {
 			if (count($attach->getAddAttachment()) > 0) {
-				$attachment = $attach->getAddAddress();
+				$attachment = $attach->getAddAttachment();
 				isset($attachment[1]) ? self::$phpmailer->addAttachment($attachment[0], $attachment[1]) : self::$phpmailer->addAttachment($attachment[0]);
 			}
 		}
