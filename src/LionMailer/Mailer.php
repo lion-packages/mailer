@@ -49,9 +49,8 @@ class Mailer {
 		}
 
 		if ($attach->getAddAttachment() != null) {
-			if (count($attach->getAddAttachment()) > 0) {
-				$attachment = $attach->getAddAttachment();
-				isset($attachment[1]) ? self::$phpmailer->addAttachment($attachment[0], $attachment[1]) : self::$phpmailer->addAttachment($attachment[0]);
+			foreach ($attach->getAddAttachment() as $key => $file) {
+				isset($file[1]) ? self::$phpmailer->addAttachment($file[0], $file[1]) : self::$phpmailer->addAttachment($file[0]);
 			}
 		}
 
