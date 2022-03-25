@@ -73,7 +73,7 @@ class Mailer {
 			self::addData($attach);
 			self::$phpmailer->send();
 
-			return ['status' => "success", 'message' => true];
+			return ['status' => "success", 'message' => 'The email has been sent successfully.'];
 		} catch (Exception $e) {
 			return ['status' => "error", 'message' => $e->getMessage()];
 		}
