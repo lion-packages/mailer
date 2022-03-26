@@ -14,7 +14,8 @@
             "email": "sergioleon4004@hotmail.com"
         }
     ],
-    "require-dev": {
+    "require": {
+        "php": ">=8.0.9",
         "phpmailer/phpmailer": "^6.6"
     }
 }
