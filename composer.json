@@ -14,7 +14,7 @@
             "email": "sergioleon4004@hotmail.com"
         }
     ],
-    "require": {
+    "require-dev": {
         "phpmailer/phpmailer": "^6.6"
     }
 }
