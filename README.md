@@ -9,8 +9,7 @@ composer require lion-framework/lion-mailer
 ```php
 require_once("vendor/autoload.php");
 
-use LionMailer\Mailer;
-use LionMailer\Attach;
+use LionMailer\{ Mailer, Attach };
 
 Mailer::init([
 	'class' => [
@@ -20,7 +19,7 @@ Mailer::init([
 	'info' => [
 		'debug' => 0, optional
 		'host' => 'smtp.example',
-		'port' => 111,
+		'port' => 0,
 		'email' => "example@example.com",
 		'user_name' => "example - user",
 		'password' => "--example--"
@@ -29,14 +28,31 @@ Mailer::init([
 
 $request = Mailer::send(
 	new Attach(
-		['example@gmail.com', 'User - Dev'], 
-		['example2@gmail.com', 'User - Reply to'], 
-		null, 
-		null, 
-		null, 
-		'Sujeto de prueba', 
-		'body de prueba', 
-		'alt body de prueba'
+		['example@gmail.com', 'User - Dev'], // addAdress
+		['example2@gmail.com', 'User - Reply to'],  // addReplyTo
+		null, // addCC
+		null, // addBCC
+		null, // addAttachment
+		'example', // subject
+		'example', // body
+		'example' // alt body
+	)
+);
+
+var_dump($request);
+
+// or
+
+$request = Mailer::send(
+	new Attach(
+		['example@gmail.com', 'User - Dev'], // addAdress
+		['example2@gmail.com', 'User - Reply to'],  // addReplyTo
+		null, // addCC
+		null, // addBCC
+		[$file], // addAttachment - optional: [$file, 'namefile.ext']
+		'example', // subject
+		'example', // body
+		'example' // alt body
 	)
 );
 
@@ -54,7 +70,7 @@ Mailer::init([
 	'info' => [
 		'debug' => 0,
 		'host' => 'smtp.example',
-		'port' => 111,
+		'port' => 0,
 		'email' => "example@example.com",
 		'user_name' => "example - user",
 		'password' => "--example--"
@@ -75,9 +91,13 @@ The info property relates all kinds of user credentials for sending correct emai
 'info' => [
 	'debug' => 0,
 	'host' => 'smtp.example',
-	'port' => 111,
+	'port' => 0,
 	'email' => "example@example.com",
 	'user_name' => "example - user",
 	'password' => "--example--"
 ]
 ```
+
+## License
+
+Copyright © 2022 [MIT License](https://github.com/Sleon4/Lion-Mailer/blob/main/LICENSE)
