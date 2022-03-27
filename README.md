@@ -98,6 +98,8 @@ The info property relates all kinds of user credentials for sending correct emai
 ]
 ```
 
-## License
+## Credits
+[PHPMailer](https://github.com/PHPMailer/PHPMailer)
 
+## License
 Copyright © 2022 [MIT License](https://github.com/Sleon4/Lion-Mailer/blob/main/LICENSE)
