@@ -62,6 +62,8 @@ class Mailer {
 
 	public static function send(Attach $attach): array {
 		try {
+			self::$phpmailer->CharSet = 'UTF-8';
+			self::$phpmailer->Encoding = 'base64';
 			self::$phpmailer->SMTPDebug = isset(self::$info['debug']) ? self::$info['debug'] : self::$classname['SMTP']::DEBUG_SERVER;
 			self::$phpmailer->isSMTP();
 			self::$phpmailer->Host = self::$info['host'];
