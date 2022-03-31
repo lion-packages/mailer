@@ -1,5 +1,7 @@
 # Library created for easy email sending based on [PHPMailer](https://github.com/PHPMailer/PHPMailer).
 
+[![Latest Stable Version](http://poser.pugx.org/lion-framework/lion-mailer/v)](https://packagist.org/packages/lion-framework/lion-mailer) [![Total Downloads](http://poser.pugx.org/lion-framework/lion-mailer/downloads)](https://packagist.org/packages/lion-framework/lion-mailer) [![License](http://poser.pugx.org/lion-framework/lion-mailer/license)](https://packagist.org/packages/lion-framework/lion-mailer) [![PHP Version Require](http://poser.pugx.org/lion-framework/lion-mailer/require/php)](https://packagist.org/packages/lion-framework/lion-mailer)
+
 ## Install
 ```
 composer require lion-framework/lion-mailer
@@ -12,10 +14,6 @@ require_once("vendor/autoload.php");
 use LionMailer\{ Mailer, Attach };
 
 Mailer::init([
-	'class' => [
-		'PHPMailer' => PHPMailer\PHPMailer\PHPMailer::class,
-		'SMTP' => PHPMailer\PHPMailer\SMTP::class
-	],
 	'info' => [
 		'debug' => 0, optional
 		'host' => 'smtp.example',
@@ -63,10 +61,6 @@ var_dump($request);
 The mailer class must be initialized using the init function and its respective parameters, debug 0 indicates that no type of information should appear on the screen when sending emails, deleting this property will cause information about the sending process to appear by default. <br>
 ```php
 Mailer::init([
-	'class' => [
-		'PHPMailer' => PHPMailer\PHPMailer\PHPMailer::class,
-		'SMTP' => PHPMailer\PHPMailer\SMTP::class
-	],
 	'info' => [
 		'debug' => 0,
 		'host' => 'smtp.example',
@@ -76,14 +70,6 @@ Mailer::init([
 		'password' => "--example--"
 	]
 ]);
-```
-
-The class property of the array indicates that the displayed classes must be initialized for the email class to work.
-```php
-'class' => [
-	'PHPMailer' => PHPMailer\PHPMailer\PHPMailer::class,
-	'SMTP' => PHPMailer\PHPMailer\SMTP::class
-]
 ```
 
 The info property relates all kinds of user credentials for sending correct email.

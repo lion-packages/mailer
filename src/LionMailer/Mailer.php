@@ -2,11 +2,10 @@
 
 namespace LionMailer;
 
+use PHPMailer\PHPMailer\{ PHPMailer, SMTP, Exception };
 use LionMailer\Attach;
 
 class Mailer {
-
-	private static array $classname;
 	private static array $info;
 	private static object $phpmailer;
 	
@@ -15,11 +14,9 @@ class Mailer {
 	}
 
 	public static function init(array $options): void {
-		if (isset($options['class'], $options['info'])) {
+		if (isset($options['info'])) {
 			self::$info = $options['info'];
-			self::$classname = $options['class'];
-
-			self::$phpmailer = new self::$classname['PHPMailer'](true);
+			self::$phpmailer = new PHPMailer(true);
 		}
 	}
 
@@ -64,13 +61,13 @@ class Mailer {
 		try {
 			self::$phpmailer->CharSet = 'UTF-8';
 			self::$phpmailer->Encoding = 'base64';
-			self::$phpmailer->SMTPDebug = isset(self::$info['debug']) ? self::$info['debug'] : self::$classname['SMTP']::DEBUG_SERVER;
+			self::$phpmailer->SMTPDebug = isset(self::$info['debug']) ? self::$info['debug'] : SMTP::DEBUG_SERVER;
 			self::$phpmailer->isSMTP();
 			self::$phpmailer->Host = self::$info['host'];
 			self::$phpmailer->SMTPAuth = true;
 			self::$phpmailer->Username = self::$info['email'];
 			self::$phpmailer->Password = self::$info['password'];
-			self::$phpmailer->SMTPSecure = self::$classname['PHPMailer']::ENCRYPTION_STARTTLS;
+			self::$phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 			self::$phpmailer->Port = self::$info['port'];
 			self::addData($attach);
 			self::$phpmailer->send();
