@@ -20,7 +20,8 @@ Mailer::init([
 		'port' => 0,
 		'email' => "example@example.com",
 		'user_name' => "example - user",
-		'password' => "--example--"
+		'password' => "--example--",
+		// optional -> 'encryption' => 'ssl'
 	]
 ]);
 

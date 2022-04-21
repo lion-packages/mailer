@@ -6,6 +6,7 @@ use PHPMailer\PHPMailer\{ PHPMailer, SMTP, Exception };
 use LionMailer\Attach;
 
 class Mailer {
+
 	private static array $info;
 	private static object $phpmailer;
 	
@@ -18,6 +19,14 @@ class Mailer {
 			self::$info = $options['info'];
 			self::$phpmailer = new PHPMailer(true);
 		}
+	}
+
+	private static function response(string $status, ?string $message = null, array $data = []): object {
+		return (object) [
+			'status' => $status,
+			'message' => $message,
+			'data' => $data
+		];
 	}
 
 	private static function addData(Attach $attach): void {
@@ -57,7 +66,7 @@ class Mailer {
 		self::$phpmailer->AltBody = $attach->getAltBody();
 	}
 
-	public static function send(Attach $attach): array {
+	public static function send(Attach $attach): object {
 		try {
 			self::$phpmailer->CharSet = 'UTF-8';
 			self::$phpmailer->Encoding = 'base64';
@@ -67,14 +76,14 @@ class Mailer {
 			self::$phpmailer->SMTPAuth = true;
 			self::$phpmailer->Username = self::$info['email'];
 			self::$phpmailer->Password = self::$info['password'];
-			self::$phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+			self::$phpmailer->SMTPSecure = isset(self::$info['encryption']) ? self::$info['encryption'] : PHPMailer::ENCRYPTION_STARTTLS;
 			self::$phpmailer->Port = self::$info['port'];
 			self::addData($attach);
 			self::$phpmailer->send();
 
-			return ['status' => "success", 'message' => 'The email has been sent successfully.'];
+			return self::response('success', 'The email has been sent successfully.');
 		} catch (Exception $e) {
-			return ['status' => "error", 'message' => $e->getMessage()];
+			return self::response('error', $e->getMessage());
 		}
 	}
 

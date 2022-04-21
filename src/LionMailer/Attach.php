@@ -5,13 +5,13 @@ namespace LionMailer;
 class Attach implements \JsonSerializable {
 
 	public function __construct(
-		private ?array $addAddress = [], 
-		private ?array $addReplyTo = [], 
-		private ?string $addCC = null, 
-		private ?string $addBCC = null, 
-		private ?array $addAttachment = [], 
-		private ?string $subject = null, 
-		private ?string $body = null, 
+		private ?array $addAddress = [],
+		private ?array $addReplyTo = [],
+		private ?string $addCC = null,
+		private ?string $addBCC = null,
+		private ?array $addAttachment = [],
+		private ?string $subject = null,
+		private ?string $body = null,
 		private ?string $altBody = null
 	) {}
 
