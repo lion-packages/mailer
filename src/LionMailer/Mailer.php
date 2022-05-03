@@ -76,7 +76,7 @@ class Mailer {
 			self::$phpmailer->SMTPAuth = true;
 			self::$phpmailer->Username = self::$info['email'];
 			self::$phpmailer->Password = self::$info['password'];
-			self::$phpmailer->SMTPSecure = isset(self::$info['encryption']) ? self::$info['encryption'] : PHPMailer::ENCRYPTION_STARTTLS;
+			self::$phpmailer->SMTPSecure = !self::$info['encryption'] ? PHPMailer::ENCRYPTION_STARTTLS : PHPMailer::ENCRYPTION_SMTPS;
 			self::$phpmailer->Port = self::$info['port'];
 			self::addData($attach);
 			self::$phpmailer->send();

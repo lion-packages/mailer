@@ -2,7 +2,7 @@
 
 namespace LionMailer;
 
-class Attach implements \JsonSerializable {
+class Attach {
 
 	public function __construct(
 		private ?array $addAddress = [],
@@ -14,10 +14,6 @@ class Attach implements \JsonSerializable {
 		private ?string $body = null,
 		private ?string $altBody = null
 	) {}
-
-	public function jsonSerialize() {
-		return get_object_vars($this);
-	}
 
     public function getAddAddress() {
         return $this->addAddress;

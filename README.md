@@ -15,13 +15,13 @@ use LionMailer\{ Mailer, Attach };
 
 Mailer::init([
 	'info' => [
-		'debug' => 0, optional
+		'debug' => 0,
 		'host' => 'smtp.example',
 		'port' => 0,
 		'email' => "example@example.com",
 		'user_name' => "example - user",
 		'password' => "--example--",
-		// optional -> 'encryption' => 'ssl'
+		'encryption' => false // true for ssl, false for tls
 	]
 ]);
 
@@ -68,7 +68,8 @@ Mailer::init([
 		'port' => 0,
 		'email' => "example@example.com",
 		'user_name' => "example - user",
-		'password' => "--example--"
+		'password' => "--example--",
+		'encryption' => false // true for ssl, false for tls
 	]
 ]);
 ```
@@ -81,7 +82,8 @@ The info property relates all kinds of user credentials for sending correct emai
 	'port' => 0,
 	'email' => "example@example.com",
 	'user_name' => "example - user",
-	'password' => "--example--"
+	'password' => "--example--",
+	'encryption' => false // true for ssl, false for tls
 ]
 ```
 
