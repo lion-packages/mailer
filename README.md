@@ -1,6 +1,6 @@
 # Library created for easy email sending based on [PHPMailer](https://github.com/PHPMailer/PHPMailer).
 
-[![Latest Stable Version](http://poser.pugx.org/lion-framework/lion-mailer/v)](https://packagist.org/packages/lion-framework/lion-mailer) [![Total Downloads](http://poser.pugx.org/lion-framework/lion-mailer/downloads)](https://packagist.org/packages/lion-framework/lion-mailer) [![License](http://poser.pugx.org/lion-framework/lion-mailer/license)](https://packagist.org/packages/lion-framework/lion-mailer) [![PHP Version Require](http://poser.pugx.org/lion-framework/lion-mailer/require/php)](https://packagist.org/packages/lion-framework/lion-mailer)
+[![Latest Stable Version](http://poser.pugx.org/lion-framework/lion-mailer/v)](https://packagist.org/packages/lion-framework/lion-mailer) [![Total Downloads](http://poser.pugx.org/lion-framework/lion-mailer/downloads)](https://packagist.org/packages/lion-framework/lion-mailer) [![Latest Unstable Version](http://poser.pugx.org/lion-framework/lion-mailer/v/unstable)](https://packagist.org/packages/lion-framework/lion-mailer) [![License](http://poser.pugx.org/lion-framework/lion-mailer/license)](https://packagist.org/packages/lion-framework/lion-mailer) [![PHP Version Require](http://poser.pugx.org/lion-framework/lion-mailer/require/php)](https://packagist.org/packages/lion-framework/lion-mailer)
 
 ## Install
 ```
@@ -11,7 +11,7 @@ composer require lion-framework/lion-mailer
 ```php
 require_once("vendor/autoload.php");
 
-use LionMailer\{ Mailer, Attach };
+use LionMailer\Mailer;
 
 Mailer::init([
 	'info' => [
@@ -26,12 +26,14 @@ Mailer::init([
 ]);
 
 $request = Mailer::send(
-	new Attach(
+	Mailer::newAttach(
 		['example@gmail.com', 'User - Dev'], // addAdress
 		['example2@gmail.com', 'User - Reply to'],  // addReplyTo
 		null, // addCC
 		null, // addBCC
-		null, // addAttachment
+		null // addAttachment
+	),
+	Mailer::newInfo(
 		'example', // subject
 		'example', // body
 		'example' // alt body
@@ -43,12 +45,14 @@ var_dump($request);
 // or
 
 $request = Mailer::send(
-	new Attach(
+	Mailer::newAttach(
 		['example@gmail.com', 'User - Dev'], // addAdress
 		['example2@gmail.com', 'User - Reply to'],  // addReplyTo
 		null, // addCC
 		null, // addBCC
 		[$file], // addAttachment - optional: [$file, 'namefile.ext']
+	),
+	Mailer::newInfo(
 		'example', // subject
 		'example', // body
 		'example' // alt body
