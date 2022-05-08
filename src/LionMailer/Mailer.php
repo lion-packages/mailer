@@ -49,12 +49,9 @@ class Mailer {
 		return self::$attach;
 	}
 
-	private static function addData(object $attach): void {
-		self::$phpmailer->setFrom(self::$info['email'], self::$info['user_name']);
-
-		if ($attach->addAddress != null) {
+	private static function addGroup(array $attachs): void {
+		foreach ($attachs as $key => $attach) {
 			$address = $attach->addAddress;
-
 			if (isset($address[1])) {
 				self::$phpmailer->addAddress(trim($address[0]), trim($address[1]));
 			} else {
@@ -94,8 +91,34 @@ class Mailer {
 			self::$phpmailer->Password = self::$info['password'];
 			self::$phpmailer->SMTPSecure = !self::$info['encryption'] ? PHPMailer::ENCRYPTION_STARTTLS : PHPMailer::ENCRYPTION_SMTPS;
 			self::$phpmailer->Port = self::$info['port'];
+			self::$phpmailer->setFrom(self::$info['email'], self::$info['user_name']);
 
-			self::addData($attach);
+			$address = $attach->addAddress;
+			if (isset($address[1])) {
+				self::$phpmailer->addAddress(trim($address[0]), trim($address[1]));
+			} else {
+				self::$phpmailer->addAddress(trim($address[0]));
+			}
+
+			if ($attach->addReplyTo != null) {
+				$reply = $attach->addReplyTo;
+				self::$phpmailer->addReplyTo(trim($reply[0]), trim($reply[1]));
+			}
+
+			if ($attach->addCC != null) {
+				self::$phpmailer->addCC(trim($attach->addCC));
+			}
+
+			if ($attach->addBCC != null) {
+				self::$phpmailer->addBCC(trim($attach->addBCC));
+			}
+
+			if ($attach->addAttachment != null) {
+				foreach ($attach->addAttachment as $key => $file) {
+					isset($file[1]) ? self::$phpmailer->addAttachment($file[0], $file[1]) : self::$phpmailer->addAttachment($file[0]);
+				}
+			}
+
 			self::$phpmailer->isHTML(true);
 			self::$phpmailer->Subject = $newInfo->subject;
 			self::$phpmailer->Body = $newInfo->body;
