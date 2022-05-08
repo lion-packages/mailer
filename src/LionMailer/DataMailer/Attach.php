@@ -6,7 +6,7 @@ class Attach {
 
 	protected static ?object $attach = null;
 
-	protected function __construct() {
+	public function __construct() {
 
 	}
 

@@ -6,7 +6,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class Data {
 
-	private function __construct() {
+	public function __construct() {
 
 	}
 

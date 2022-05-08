@@ -12,6 +12,7 @@ composer require lion-framework/lion-mailer
 require_once("vendor/autoload.php");
 
 use LionMailer\Mailer;
+use LionMailer\DataMailer\Attach;
 
 Mailer::init([
 	'info' => [
@@ -26,7 +27,7 @@ Mailer::init([
 ]);
 
 $request = Mailer::send(
-	Mailer::newAttach(
+	Attach::newAttach(
 		['example@gmail.com', 'User - Dev'], // addAdress
 		['example2@gmail.com', 'User - Reply to'],  // addReplyTo
 		null, // addCC
@@ -45,7 +46,7 @@ var_dump($request);
 // or
 
 $request = Mailer::send(
-	Mailer::newAttach(
+	Attach::newAttach(
 		['example@gmail.com', 'User - Dev'], // addAdress
 		['example2@gmail.com', 'User - Reply to'],  // addReplyTo
 		null, // addCC
