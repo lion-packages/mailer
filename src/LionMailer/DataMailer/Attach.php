@@ -10,7 +10,7 @@ class Attach {
 
 	}
 
-	public static function newAttach(?array $addAddress = [], ?array $addReplyTo = [], ?string $addCC = null, ?string $addBCC = null, ?array $addAttachment = []): object {
+	public static function newAttach(array $addAddress, array $addReplyTo, ?string $addCC = null, ?string $addBCC = null, ?array $addAttachment = []): object {
 		if (self::$attach === null) {
 			self::$attach = (object) [
 				'addAddress' => $addAddress,
@@ -28,6 +28,10 @@ class Attach {
 		}
 
 		return self::$attach;
+	}
+
+	public static function newGroupAttach(array $addAddress): object {
+		return (object) ['addAddress'  => $addAddress];
 	}
 
 }

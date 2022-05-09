@@ -63,7 +63,7 @@ $request = Mailer::send(
 var_dump($request);
 ```
 
-### Instructions
+### 1. INSTRUCTIONS
 The mailer class must be initialized using the init function and its respective parameters, debug 0 indicates that no type of information should appear on the screen when sending emails, deleting this property will cause information about the sending process to appear by default. <br>
 ```php
 Mailer::init([
@@ -90,6 +90,27 @@ The info property relates all kinds of user credentials for sending correct emai
 	'password' => "--example--",
 	'encryption' => false // true for ssl, false for tls
 ]
+```
+
+### 2. SEND EMAILS TO MULTIPLE ACCOUNTS
+```php
+$request = Mailer::sendGroup(
+	Attach::newGroupAttach([
+		['person1@example.com', 'person1'], // addAdress
+		['person1@example.com', 'person2'], // addAdress
+	]),
+	Mailer::newGroupInfo(
+		["example@example.com", 'example - user'], // addReplyTo
+		null, // addCC
+		null, // addBCC
+		null, // addAttachment
+		'example', // subject
+		'example', // body
+		'example' // alt body
+	)
+);
+
+var_dump($request);
 ```
 
 ## Credits
