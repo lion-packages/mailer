@@ -1,5 +1,5 @@
 {
-    "name": "lion-framework/lion-mailer",
+    "name": "lion/mailer",
     "description": "Library created for easy email sending based on PHPMailer.",
     "type": "library",
     "license": "MIT",
