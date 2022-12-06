@@ -2,110 +2,151 @@
 
 namespace LionMailer;
 
-use PHPMailer\PHPMailer\{ PHPMailer, SMTP, Exception };
-use LionMailer\DataMailer\Data;
+use LionRequest\Response;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
 
-class Mailer extends Data {
+class Mailer {
 
-	private static array $info;
-	private static PHPMailer $phpmailer;
-	
-	public function __construct() {
+	private static Mailer $mailer;
+	private static PHPMailer $phpMailer;
 
+	private static array $config;
+	private static string $from_email = "";
+	private static string $from_name = "";
+	private static string $address_email;
+	private static string $address_name;
+	private static string $reply_email;
+	private static string $reply_name;
+	private static bool $active_cc = false;
+	private static string $cc;
+	private static bool $active_bcc = false;
+	private static string $bcc;
+	private static bool $active_attachment = false;
+	private static string $path;
+	private static string $file_name;
+	private static bool $isHtml = true;
+	private static string $subject;
+	private static string $body;
+	private static string $alt_body;
+
+	public static function init(array $config): void {
+		self::$config = $config;
+		self::$mailer = new Mailer();
+		self::$phpMailer = new PHPMailer(true);
 	}
 
-	public static function init(array $options): void {
-		if (isset($options['info'])) {
-			self::$info = $options['info'];
-			self::$phpmailer = new PHPMailer(true);
-		}
+	public static function from(string $from_email, string $from_name = ""): Mailer {
+		self::$from_email = $from_email;
+		self::$from_name = $from_name;
+		return self::$mailer;
 	}
 
-	private static function response(string $status, ?string $message = null, array $data = []): object {
-		return (object) [
-			'status' => $status,
-			'message' => $message,
-			'data' => $data
-		];
+	public static function address(string $address_email, string $address_name = ""): Mailer {
+		self::$address_email = $address_email;
+		self::$address_name = $address_name;
+		return self::$mailer;
 	}
 
-	public static function newInfo(string $subject, string $body, string $altBody): object {
-		return (object) [
-			'subject' => $subject,
-			'body' => $body,
-			'altBody' => $altBody
-		];
+	public static function replyTo(string $reply_email, string $reply_name = ""): Mailer {
+		self::$reply_email = $reply_email;
+		self::$reply_name = $reply_name;
+		return self::$mailer;
 	}
 
-	public static function newGroupInfo(
-		array $addReplyTo,
-		?string $addCC = null,
-		?string $addBCC = null,
-		?array $addAttachment = [],
-		string $subject,
-		string $body,
-		string $altBody
-	): object {
-		return (object) [
-			'addReplyTo' => $addReplyTo,
-			'addCC' => $addCC,
-			'addBCC' => $addBCC,
-			'addAttachment' => $addAttachment,
-			'subject' => $subject,
-			'body' => $body,
-			'altBody' => $altBody
-		];
+	public static function cc(string $cc): Mailer {
+		self::$active_cc = true;
+		self::$cc = $cc;
+		return self::$mailer;
 	}
 
-	public static function send(object $attach, object $newInfo): object {
+	public static function bcc(string $bcc): Mailer {
+		self::$active_bcc = true;
+		self::$bcc = $bcc;
+		return self::$mailer;
+	}
+
+	public static function attachment(string $path, string $file_name = ""): Mailer {
+		self::$active_attachment = true;
+		self::$path = $path;
+		self::$file_name = $file_name;
+		return self::$mailer;
+	}
+
+	public static function html(bool $isHtml = true): Mailer {
+		self::$isHtml = $isHtml;
+		return self::$mailer;
+	}
+
+	public static function subject(string $subject): Mailer {
+		self::$subject = $subject;
+		return self::$mailer;
+	}
+
+	public static function body(mixed $body): Mailer {
+		self::$body = $body;
+		return self::$mailer;
+	}
+
+	public static function altBody(mixed $alt_body): Mailer {
+		self::$alt_body = $alt_body;
+		return self::$mailer;
+	}
+
+	public static function send(): object {
 		try {
-			self::$phpmailer->CharSet = 'UTF-8';
-			self::$phpmailer->Encoding = 'base64';
-			self::$phpmailer->SMTPDebug = isset(self::$info['debug']) ? self::$info['debug'] : SMTP::DEBUG_SERVER;
-			self::$phpmailer->isSMTP();
-			self::$phpmailer->Host = self::$info['host'];
-			self::$phpmailer->SMTPAuth = true;
-			self::$phpmailer->Username = self::$info['email'];
-			self::$phpmailer->Password = self::$info['password'];
-			self::$phpmailer->SMTPSecure = !self::$info['encryption'] ? PHPMailer::ENCRYPTION_STARTTLS : PHPMailer::ENCRYPTION_SMTPS;
-			self::$phpmailer->Port = self::$info['port'];
-			self::$phpmailer->setFrom(self::$info['email'], self::$info['user_name']);
-			self::$phpmailer = self::addData(self::$phpmailer, $attach);
-			self::$phpmailer->isHTML(true);
-			self::$phpmailer->Subject = $newInfo->subject;
-			self::$phpmailer->Body = $newInfo->body;
-			self::$phpmailer->AltBody = $newInfo->altBody;
-			self::$phpmailer->send();
+			self::$phpMailer->SMTPDebug = self::$config['debug'];
+			self::$phpMailer->isSMTP();
+			self::$phpMailer->Host = self::$config['host'];
+			self::$phpMailer->SMTPAuth = true;
+			self::$phpMailer->Username = self::$config['username'];
+			self::$phpMailer->Password = self::$config['password'];
+			self::$phpMailer->SMTPSecure = self::$config['encryption'];
+			self::$phpMailer->Port = self::$config['port'];
 
-			return self::response('success', 'The email has been sent successfully.');
+			self::$phpMailer->setFrom(
+				self::$from_email === ""
+					? self::$config['username']
+					: self::$from_email,
+				self::$from_name
+			);
+
+			self::$phpMailer->addAddress(self::$address_email, self::$address_name);
+			self::$phpMailer->addReplyTo(self::$reply_email, self::$reply_name);
+
+			if (self::$active_cc) {
+				self::$active_cc = false;
+				self::$phpMailer->addCC(self::$cc);
+			}
+
+			if (self::$active_bcc) {
+				self::$active_bcc = false;
+				self::$phpMailer->addBCC(self::$bcc);
+			}
+
+			if (self::$active_attachment) {
+				self::$active_attachment = false;
+				self::$phpMailer->addAttachment(self::$path, self::$file_name);
+			}
+
+			self::$phpMailer->isHTML(self::$isHtml);
+			self::$phpMailer->Subject = self::$subject;
+			self::$phpMailer->Body = self::$body;
+			self::$phpMailer->AltBody = self::$alt_body;
+			self::$phpMailer->send();
+
+			return (object) [
+				'status' => 'success',
+				'message' => 'the message has been sent'
+			];
 		} catch (Exception $e) {
-			return self::response('error', $e->getMessage());
-		}
-	}
-
-	public static function sendGroup(object $attachs, object $newGroupInfo): object {
-		try {
-			self::$phpmailer->CharSet = 'UTF-8';
-			self::$phpmailer->Encoding = 'base64';
-			self::$phpmailer->SMTPDebug = isset(self::$info['debug']) ? self::$info['debug'] : SMTP::DEBUG_SERVER;
-			self::$phpmailer->isSMTP();
-			self::$phpmailer->Host = self::$info['host'];
-			self::$phpmailer->SMTPAuth = true;
-			self::$phpmailer->Username = self::$info['email'];
-			self::$phpmailer->Password = self::$info['password'];
-			self::$phpmailer->SMTPSecure = !self::$info['encryption'] ? PHPMailer::ENCRYPTION_STARTTLS : PHPMailer::ENCRYPTION_SMTPS;
-			self::$phpmailer->Port = self::$info['port'];
-			self::$phpmailer->setFrom(self::$info['email'], self::$info['user_name']);
-			self::$phpmailer = self::addGroupData(self::$phpmailer, $attachs, $newGroupInfo);
-			self::$phpmailer->isHTML(true);
-			self::$phpmailer->Subject = $newGroupInfo->subject;
-			self::$phpmailer->Body = $newGroupInfo->body;
-			self::$phpmailer->AltBody = $newGroupInfo->altBody;
-			self::$phpmailer->send();
-
-			return self::response('success', 'The email has been sent successfully.');
-		} catch (Exception $e) {
-			return self::response('error', $e->getMessage());
+			return (object) [
+				'status' => 'error',
+				'message' => 'Message could not be sent',
+				'data' => (object) [
+					'exception' => $e->getMessage()
+				]
+			];
 		}
 	}
 
