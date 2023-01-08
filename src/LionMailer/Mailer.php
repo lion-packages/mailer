@@ -36,6 +36,11 @@ class Mailer {
 		self::$phpMailer = new PHPMailer(true);
 	}
 
+	public static function embeddedImage(string $path, string $cid): Mailer {
+		self::$phpMailer->addEmbeddedImage($path, $cid);
+		return self::$mailer;
+	}
+
 	public static function from(string $from_email, string $from_name = ""): Mailer {
 		self::$from_email = $from_email;
 		self::$from_name = $from_name;
