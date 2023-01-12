@@ -2,7 +2,6 @@
 
 namespace LionMailer;
 
-use LionRequest\Response;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -11,29 +10,35 @@ class Mailer {
 	private static Mailer $mailer;
 	private static PHPMailer $phpMailer;
 
-	private static array $config;
+	private static array $config = [];
 	private static string $from_email = "";
 	private static string $from_name = "";
-	private static string $address_email;
-	private static string $address_name;
-	private static string $reply_email;
-	private static string $reply_name;
+	private static string $address_email = "";
+	private static string $address_name = "";
+	private static string $reply_email = "";
+	private static string $reply_name = "";
 	private static bool $active_cc = false;
-	private static string $cc;
+	private static string $cc = "";
 	private static bool $active_bcc = false;
-	private static string $bcc;
+	private static string $bcc = "";
 	private static bool $active_attachment = false;
-	private static string $path;
-	private static string $file_name;
+	private static string $path = "";
+	private static string $file_name = "";
 	private static bool $isHtml = true;
-	private static string $subject;
-	private static string $body;
-	private static string $alt_body;
+	private static string $subject = "";
+	private static string $body = "";
+	private static string $alt_body = "";
+	private static array $address_list = [];
 
 	public static function init(array $config): void {
 		self::$config = $config;
 		self::$mailer = new Mailer();
 		self::$phpMailer = new PHPMailer(true);
+	}
+
+	public static function multiple(): Mailer {
+		self::$address_list = func_get_args();
+		return self::$mailer;
 	}
 
 	public static function embeddedImage(string $path, string $cid): Mailer {
@@ -110,13 +115,18 @@ class Mailer {
 			self::$phpMailer->Port = self::$config['port'];
 
 			self::$phpMailer->setFrom(
-				self::$from_email === ""
-					? self::$config['username']
-					: self::$from_email,
+				self::$from_email === "" ? self::$config['username'] : self::$from_email,
 				self::$from_name
 			);
 
-			self::$phpMailer->addAddress(self::$address_email, self::$address_name);
+			if (count(self::$address_list) > 0) {
+				foreach (self::$address_list as $key => $address) {
+					self::$phpMailer->addAddress($address);
+				}
+			} else {
+				self::$phpMailer->addAddress(self::$address_email, self::$address_name);
+			}
+
 			self::$phpMailer->addReplyTo(self::$reply_email, self::$reply_name);
 
 			if (self::$active_cc) {
