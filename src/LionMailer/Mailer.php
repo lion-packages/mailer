@@ -36,6 +36,11 @@ class Mailer {
 		self::$phpMailer = new PHPMailer(true);
 	}
 
+	public static function header(string $name, string $value): Mailer {
+		self::$phpMailer->addCustomHeader($name, $value);
+		return self::$mailer;
+	}
+
 	public static function multiple(): Mailer {
 		self::$address_list = func_get_args();
 		return self::$mailer;
