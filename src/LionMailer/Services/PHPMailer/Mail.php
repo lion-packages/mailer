@@ -85,7 +85,14 @@ class Mail extends SettingsMailServices {
 	}
 
 	public static function bcc(string $bcc): Mail {
-		self::$phpMailer->addBCC($bcc);
+		foreach (func_get_args() as $key => $cc) {
+			if (is_array($cc)) {
+				self::$phpMailer->addBCC($cc[0], $cc[1]);
+			} else {
+				self::$phpMailer->addBCC($cc);
+			}
+		}
+
 		return self::$phpMail;
 	}
 
