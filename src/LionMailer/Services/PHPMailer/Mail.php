@@ -72,8 +72,15 @@ class Mail extends SettingsMailServices {
 		return self::$phpMail;
 	}
 
-	public static function cc(string $cc): Mail {
-		self::$phpMailer->addCC($cc);
+	public static function cc(): Mail {
+		foreach (func_get_args() as $key => $cc) {
+			if (is_array($cc)) {
+				self::$phpMailer->addCC($cc[0], $cc[1]);
+			} else {
+				self::$phpMailer->addCC($cc);
+			}
+		}
+
 		return self::$phpMail;
 	}
 
