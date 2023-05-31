@@ -169,6 +169,7 @@ class Mail extends SettingsMailServices {
 			$mailer = new Mailer(Transport::fromDsn("smtp://{$auth}@{$host}"));
 			self::$email->from($account['account']);
 			$mailer->send(self::$email);
+			self::clean();
 			return (object) ['status' => 'success', 'message' => 'the message has been sent'];
 		} catch (\Throwable $e) {
 			return (object) ['status' => 'mail-error', 'message' => $e->getMessage()];
