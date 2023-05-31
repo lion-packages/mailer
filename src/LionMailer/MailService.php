@@ -3,6 +3,7 @@
 namespace LionMailer;
 
 use LionMailer\Services\PHPMailer\Mail as PHPMail;
+use LionMailer\Services\Symfony\Mail as SymfMail;
 
 class MailService {
 
@@ -19,6 +20,8 @@ class MailService {
 
 		if (strtolower($default_account['service']) === "phpmailer") {
 			PHPMail::init($accounts);
+		} elseif (strtolower($default_account['service']) === "symfony") {
+			SymfMail::init($accounts);
 		} else {
 			return (object) ['status' => "mail-error", 'message' => "the service does not exist"];
 		}
