@@ -1,11 +1,26 @@
-# Lion-Mailer
+<p align="center">
+  <a href="https://lion-client.vercel.app/" target="_blank">
+    <img
+         src="https://user-images.githubusercontent.com/56183278/230516080-096130be-e474-4f3a-a78a-44d3973ff715.png"
+         width="300"
+         alt="Lion-Framework Logo"
+    >
+  </a>
+</p>
 
-[![Latest Stable Version](http://poser.pugx.org/lion/mailer/v)](https://packagist.org/packages/lion/mailer) [![Total Downloads](http://poser.pugx.org/lion/mailer/downloads)](https://packagist.org/packages/lion/mailer) [![License](http://poser.pugx.org/lion/mailer/license)](https://packagist.org/packages/lion/mailer) [![PHP Version Require](http://poser.pugx.org/lion/mailer/require/php)](https://packagist.org/packages/lion/mailer)
+<p align="center">
+  <img src="http://poser.pugx.org/lion/mailer/v" alt="Latest Stable Version">
+  <img src="http://poser.pugx.org/lion/mailer/downloads" alt="Total Downloads">
+  <img src="http://poser.pugx.org/lion/mailer/license" alt="License">
+  <img src="http://poser.pugx.org/lion/mailer/require/php" alt="PHP Version Require">
+</p>
 
 ## Install
+
 ```shell
-composer require lion/mailer
+composer create-project lion/mailer
 ```
 
 ## License
-Copyright © 2022 [MIT License](https://github.com/Sleon4/Lion-Mailer/blob/main/LICENSE)
+
+The Lion-Mailer is open-sourced software licensed under the [MIT License](https://github.com/Sleon4/Lion-Mailer/blob/main/LICENSE).
