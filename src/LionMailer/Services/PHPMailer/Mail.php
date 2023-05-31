@@ -101,11 +101,6 @@ class Mail extends SettingsMailServices {
 		return self::$phpMail;
 	}
 
-	public static function isHtml(bool $isHtml = true): Mail {
-		self::$phpMailer->isHTML($isHtml);
-		return self::$phpMail;
-	}
-
 	public static function subject(string $subject): Mail {
 		self::$phpMailer->Subject = $subject;
 		return self::$phpMail;
@@ -121,7 +116,7 @@ class Mail extends SettingsMailServices {
 		return self::$phpMail;
 	}
 
-	public static function send(): object {
+	public static function send(bool $isHtml = true): object {
 		$account = self::$accounts['accounts'][self::$active_account];
 
 		if (!in_array("phpmailer", $account['services'])) {
@@ -138,6 +133,7 @@ class Mail extends SettingsMailServices {
 			self::$phpMailer->SMTPSecure = $account['encryption'];
 			self::$phpMailer->Port = $account['port'];
 			self::$phpMailer->setFrom($account['account'], $account['name']);
+			self::$phpMailer->isHTML($isHtml);
 			self::$phpMailer->send();
 			self::clean();
 			return (object) ['status' => 'success', 'message' => 'the message has been sent'];
