@@ -167,7 +167,7 @@ class Mail extends SettingsMailServices {
 			$auth = "{$account['account']}:{$account['password']}";
 			$host = "{$account['host']}:{$account['port']}";
 			$mailer = new Mailer(Transport::fromDsn("smtp://{$auth}@{$host}"));
-			self::$email->from($account['account']);
+			self::$email->from(new Address($account['account'], $account['name']));
 			$mailer->send(self::$email);
 			self::clean();
 			return (object) ['status' => 'success', 'message' => 'the message has been sent'];
