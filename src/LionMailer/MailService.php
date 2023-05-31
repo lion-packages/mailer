@@ -16,16 +16,22 @@ class MailService {
 			return (object) ['status' => "mail-error", 'message' => "the service requires a default account"];
 		}
 
+		if (!isset($accounts['accounts'][$accounts['default']])) {
+			return (object) ['status' => "mail-error", 'message' => "the default account does not exist"];
+		}
+
 		$default_account = $accounts['accounts'][$accounts['default']];
 
-		if (strtolower($default_account['service']) === "phpmailer") {
-			PHPMail::init($accounts);
-		} elseif (strtolower($default_account['service']) === "symfony") {
-			SymfMail::init($accounts);
-		} else {
+		if (!is_array($default_account['services'])) {
 			return (object) ['status' => "mail-error", 'message' => "the service does not exist"];
 		}
 
+		if (count($default_account['services']) === 0) {
+			return (object) ['status' => "mail-error", 'message' => "the service does not exist"];
+		}
+
+		PHPMail::init($accounts);
+		SymfMail::init($accounts);
 		return (object) ['status' => "success", 'message' => "service enabled successfully"];
 	}
 

@@ -110,6 +110,10 @@ class Mail extends SettingsMailServices {
 	public static function send(): object {
 		$account = self::$accounts['accounts'][self::$active_account];
 
+		if (!in_array("phpmailer", $account['services'])) {
+			return (object) ['status' => 'mail-error', 'message' => 'phpmailer service is not enabled for this account'];
+		}
+
 		try {
 			self::$phpMailer->SMTPDebug = $account['debug'];
 			self::$phpMailer->isSMTP();

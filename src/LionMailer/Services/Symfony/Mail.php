@@ -159,6 +159,10 @@ class Mail extends SettingsMailServices {
 	public static function send(): object {
 		$account = self::$accounts['accounts'][self::$active_account];
 
+		if (!in_array("symfony", $account['services'])) {
+			return (object) ['status' => 'mail-error', 'message' => 'phpmailer service is not enabled for this account'];
+		}
+
 		try {
 			$auth = "{$account['account']}:{$account['password']}";
 			$host = "{$account['host']}:{$account['port']}";
