@@ -57,8 +57,8 @@ class Mail extends SettingsMailServices {
 		return self::$phpMail;
 	}
 
-	public static function embeddedImage(string $path, string $cid): Mail {
-		self::$phpMailer->addEmbeddedImage($path, $cid);
+	public static function embeddedImage(string $path, string $cid, string $name = ""): Mail {
+		self::$phpMailer->addEmbeddedImage($path, $cid, $name);
 		return self::$phpMail;
 	}
 
