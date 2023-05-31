@@ -20,6 +20,21 @@ class Mail extends SettingsMailServices {
 		self::$active_account = self::$accounts['default'];
 	}
 
+	public static function highPriority(): Mail {
+		self::$phpMailer->Priority = 1;
+		return self::$phpMail;
+	}
+
+	public static function regularPriority(): Mail {
+		self::$phpMailer->Priority = 3;
+		return self::$phpMail;
+	}
+
+	public static function lowPriority(): Mail {
+		self::$phpMailer->Priority = 5;
+		return self::$phpMail;
+	}
+
 	public static function account(string $account): Mail {
 		self::$active_account = $account;
 		return self::$phpMail;
