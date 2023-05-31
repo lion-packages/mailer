@@ -17,4 +17,8 @@ class SettingsMailServices {
 		self::$active_account = self::$accounts['default'];
 	}
 
+	public static function getAccounts() {
+		return self::$accounts;
+	}
+
 }
