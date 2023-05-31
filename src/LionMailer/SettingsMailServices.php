@@ -21,4 +21,8 @@ class SettingsMailServices {
 		return self::$accounts;
 	}
 
+	public static function addAccounts(string $key, array $settings) {
+		return self::$accounts['accounts'][$key] = $settings;
+	}
+
 }
