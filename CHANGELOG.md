@@ -10,6 +10,8 @@
 - added name parameter in embeddedImage function
 - added multiple parameters for cc function
 - added multiple parameters for bcc function
+- addAccount function has been added to add an account during execution
+- function has been added to display the available accounts
 
 ## Chagned
 - isHtml function has been removed from the phpmailer service
