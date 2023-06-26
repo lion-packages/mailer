@@ -1,5 +1,11 @@
 # Release Notes
 
+## [v5.1.0](https://github.com/Sleon4/Lion-Mailer/compare/v5.0.0...v5.1.0) (2023-06-26)
+
+### Added
+- docker configuration added
+- added account function for account change in LionMailer\Services\Symfony\Mail class
+
 ## [v5.0.0](https://github.com/Sleon4/Lion-Mailer/compare/v4.3.0...v5.0.0) (2023-05-31)
 
 ### Added
