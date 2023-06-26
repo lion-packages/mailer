@@ -156,6 +156,11 @@ class Mail extends SettingsMailServices {
 		return self::$symfMail;
 	}
 
+	public static function account(string $account): Mail {
+		self::$active_account = $account;
+		return self::$symfMail;
+	}
+
 	public static function send(): object {
 		$account = self::$accounts['accounts'][self::$active_account];
 
