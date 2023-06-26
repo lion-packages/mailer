@@ -18,7 +18,7 @@
 ## Install
 
 ```shell
-composer create-project lion/mailer
+composer require lion/mailer
 ```
 
 ## License
