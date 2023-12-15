@@ -9,18 +9,17 @@
 </p>
 
 <p align="center">
-  <img src="http://poser.pugx.org/lion/mailer/v" alt="Latest Stable Version">
-  <img src="http://poser.pugx.org/lion/mailer/downloads" alt="Total Downloads">
-  <img src="http://poser.pugx.org/lion/mailer/license" alt="License">
-  <img src="http://poser.pugx.org/lion/mailer/require/php" alt="PHP Version Require">
+  <img src="http://poser.pugx.org/lion/helpers/v" alt="Latest Stable Version">
+  <img src="http://poser.pugx.org/lion/helpers/downloads" alt="Total Downloads">
+  <img src="http://poser.pugx.org/lion/helpers/license" alt="License">
+  <img src="http://poser.pugx.org/lion/helpers/require/php" alt="PHP Version Require">
 </p>
 
 ## Install
-
-```shell
-composer require lion/mailer
+```bash
+composer require lion/helpers
 ```
 
 ## License
 
-The Lion-Mailer is open-sourced software licensed under the [MIT License](https://github.com/Sleon4/Lion-Mailer/blob/main/LICENSE).
+The <strong>helpers</strong> library is open source software licensed under the [MIT License](https://github.com/lion-packages/helpers/blob/main/LICENSE).
