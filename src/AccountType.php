@@ -10,9 +10,7 @@ use LionMailer\Accounts\SymfonyMailerAccount;
 enum AccountType: string
 {
     case PHPMailer = "phpmailer";
-
     case Symfony = "symfony";
-
 
     public function getClassName(): string
     {

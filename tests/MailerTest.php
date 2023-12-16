@@ -9,46 +9,23 @@ use LionMailer\Exceptions\MailerAccountConfigException;
 use LionMailer\Mailer;
 use LionMailer\MailerAccountInterface;
 use PHPUnit\Framework\TestCase;
+use Tests\Provider\MailerProviderTrait;
 
 class MailerTest extends TestCase
 {
+    use MailerProviderTrait;
+
+    const INVALID = 'invalid';
+    const DEFAULT_ = 'default';
+    const SUPPORT = 'support';
+
     private array $accounts;
-
-    const PHPMAILER_TEST_ACCOUNT = [
-        'name' => 'default',
-        'type' => 'phpmailer',
-        'host' => 'host',
-        'username' => 'username',
-        'password' => 'password',
-        'port' => 495,
-        'encryption' => 'tls',
-        'debug' => false
-    ];
-
-    const SYMFONY_TEST_ACCOUNT = [
-        'name' => 'support',
-        'type' => 'symfony',
-        'host' => 'host',
-        'username' => 'username',
-        'password' => 'password',
-        'port' => 495,
-        'encryption' => 'tls',
-        'debug' => false
-    ];
 
     public function setUp(): void
     {
         $this->accounts = [
-            'default' => $this::PHPMAILER_TEST_ACCOUNT,
-            'support' => $this::SYMFONY_TEST_ACCOUNT
-        ];
-    }
-
-    public static function accountProvider(): array
-    {
-        return [
-            [AccountType::PHPMailer, self::PHPMAILER_TEST_ACCOUNT],
-            [AccountType::Symfony, self::SYMFONY_TEST_ACCOUNT],
+            self::DEFAULT_ => $this::PHPMAILER_TEST_ACCOUNT,
+            self::SUPPORT => $this::SYMFONY_TEST_ACCOUNT
         ];
     }
 
@@ -56,8 +33,8 @@ class MailerTest extends TestCase
     {
         Mailer::initialize($this->accounts);
 
-        $this->assertInstanceOf(MailerAccountInterface::class, Mailer::account('default'));
-        $this->assertInstanceOf(MailerAccountInterface::class, Mailer::account('support'));
+        $this->assertInstanceOf(MailerAccountInterface::class, Mailer::account(self::DEFAULT_));
+        $this->assertInstanceOf(MailerAccountInterface::class, Mailer::account(self::SUPPORT));
     }
 
     /**
@@ -74,7 +51,7 @@ class MailerTest extends TestCase
     {
         Mailer::initialize($this->accounts);
 
-        $this->assertInstanceOf(MailerAccountInterface::class, Mailer::account('default'));
+        $this->assertInstanceOf(MailerAccountInterface::class, Mailer::account(self::DEFAULT_));
     }
 
     public function testMailerThrowsExceptionWhenAccountIsNotFound(): void
@@ -83,7 +60,7 @@ class MailerTest extends TestCase
 
         $this->expectException(MailerAccountConfigException::class);
 
-        Mailer::account('invalid');
+        Mailer::account(self::INVALID);
     }
 
     public function testThrowsExceptionWhenProvidedEmptyAccountsArray(): void
@@ -113,9 +90,9 @@ class MailerTest extends TestCase
         $this->expectException(MailerAccountConfigException::class);
 
         Mailer::initialize([
-            'default' => [
+            self::DEFAULT_ => [
                 ...$this::PHPMAILER_TEST_ACCOUNT,
-                'type' => 'invalid'
+                'type' => self::INVALID
             ],
         ]);
     }

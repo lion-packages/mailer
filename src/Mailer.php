@@ -13,7 +13,6 @@ use LionMailer\Exceptions\MailerAccountConfigException;
 class Mailer
 {
     private static array $accounts;
-
     private static string $default;
 
     public static function initialize(array $accounts, string $default = 'default'): void
@@ -46,8 +45,6 @@ class Mailer
 
     public static function setDefault(string $name): void
     {
-        var_dump($name);
-
         if (!isset(self::$accounts[$name])) {
             throw MailerAccountConfigException::accountNotFound($name);
         }

@@ -7,44 +7,54 @@ namespace Tests;
 use LionMailer\Priority;
 use PHPUnit\Framework\TestCase;
 use LionMailer\MailerAccountInterface;
-use LionMailer\Accounts\PHPMailerAccount;
-use LionMailer\Accounts\SymfonyMailerAccount;
 use LionMailer\Exceptions\EmptyBodyException;
 use LionMailer\MailerAccountConfig;
 use LionMailer\Exceptions\InvalidFromAddressException;
 use LionMailer\Exceptions\InvalidRecipientAddressException;
 use LionMailer\Exceptions\MailerAccountConfigException;
+use Tests\Provider\MailerAccountsProviderTrait;
 
 class MailerAccountsTest extends TestCase
 {
-    protected array $config;
+    use MailerAccountsProviderTrait;
 
-    public function setUp(): void
-    {
-        $this->config = [
-            'host' => 'mailhog',
-            'username' => 'username@examplfe.com',
-            'password' => 'password',
-            'port' => 1025,
-            'encryption' => 'false',
-            'debug' => false
-        ];
-    }
-
-    public static function mailerAccountProvider(): array
-    {
-        return [
-            [PHPMailerAccount::class],
-            [SymfonyMailerAccount::class],
-        ];
-    }
+    const CONFIG = [
+        'host' => 'mailhog',
+        'username' => 'username@examplfe.com',
+        'password' => 'password',
+        'port' => 1025,
+        'encryption' => 'false',
+        'debug' => false
+    ];
+    const TEST = 'test';
+    const SUBJECT = 'Test Email';
+    const FROM_EMAIL = 'from@example.com';
+    const FROM_NAME = 'From Name';
+    const ADDRESS_EMAIL = 'address@example.com';
+    const ADDRESS_NAME = 'Adress Name';
+    const ADDRESS_EMAIL_SECOND = 'address2@example.com';
+    const ADDRESS_NAME_SECOND = 'Adress Name 2';
+    const REPLY_TO_EMAIL = 'replyto@example.com';
+    const REPLY_TO_NAME = 'Reply To Name';
+    const REPLY_TO_EMAIL_SECOND = 'replyto2@example.com';
+    const REPLY_TO_NAME_SECOND = 'Reply To Name 2';
+    const ADD_CC_EMAIL = 'cc@example.com';
+    const ADD_CC_NAME = 'CC Name';
+    const ADD_CC_EMAIL_SECOND = 'cc2@example.com';
+    const ADD_CC_NAME_SECOND = 'CC Name 2';
+    const ADD_BCC_EMAIL = 'bcc@example.com';
+    const ADD_BCC_NAME = 'BCC Name';
+    const ADD_BCC_EMAIL_SECOND = 'bcc2@example.com';
+    const ADD_BCC_NAME_SECOND = 'BCC Name 2';
+    const BODY = 'Test Body';
+    const ALT_BODY = 'Test Alt Body';
 
     /**
      * @dataProvider mailerAccountProvider
      */
     public function testCanBeInstatiated(string $mailerService): void
     {
-        $mailer = new $mailerService(MailerAccountConfig::fromArray($this->config));
+        $mailer = new $mailerService(MailerAccountConfig::fromArray(self::CONFIG));
 
         $this->assertInstanceOf(MailerAccountInterface::class, $mailer);
     }
@@ -56,10 +66,7 @@ class MailerAccountsTest extends TestCase
     {
         $this->expectException(MailerAccountConfigException::class);
 
-        new $mailerService(MailerAccountConfig::fromArray([
-            ...$this->config,
-            'encryption' => 'test'
-        ]));
+        new $mailerService(MailerAccountConfig::fromArray([...self::CONFIG, 'encryption' => self::TEST]));
     }
 
     /**
@@ -67,24 +74,21 @@ class MailerAccountsTest extends TestCase
      */
     public function testCanSendEmail(string $mailerService): void
     {
-        $mailer = new $mailerService(MailerAccountConfig::fromArray($this->config));
+        $mailer = (new $mailerService(MailerAccountConfig::fromArray(self::CONFIG)))
+            ->subject(self::SUBJECT)
+            ->from(self::FROM_EMAIL, self::FROM_NAME)
+            ->addAddress(self::ADDRESS_EMAIL, self::ADDRESS_NAME)
+            ->addAddress(self::ADDRESS_EMAIL_SECOND, Self::ADDRESS_NAME_SECOND)
+            ->addReplyTo(self::REPLY_TO_EMAIL, self::REPLY_TO_NAME)
+            ->addReplyTo(self::REPLY_TO_EMAIL_SECOND, self::REPLY_TO_NAME_SECOND)
+            ->addCC(self::ADD_CC_EMAIL, self::ADD_CC_NAME)
+            ->addCC(self::ADD_CC_EMAIL_SECOND, self::ADD_CC_NAME_SECOND)
+            ->addBCC(self::ADD_BCC_EMAIL, self::ADD_BCC_NAME)
+            ->addBCC(self::ADD_BCC_EMAIL_SECOND, self::ADD_BCC_NAME_SECOND)
+            ->body(self::BODY)
+            ->altBody(self::ALT_BODY);
 
-        $result = $mailer
-            ->subject('Test Email')
-            ->from('from@example.com', 'From Name')
-            ->addAddress('address@example.com', 'Adress Name')
-            ->addAddress('address2@example.com', 'Adress Name 2')
-            ->addReplyTo('replyto@example.com', 'Reply To Name')
-            ->addReplyTo('replyto2@example.com', 'Reply To Name 2')
-            ->addCC('cc@example.com', 'CC Name')
-            ->addCC('cc2@example.com', 'CC Name 2')
-            ->addBCC('bcc@example.com', 'BCC Name')
-            ->addBCC('bcc2@example.com', 'BCC Name 2')
-            ->body('Test Body')
-            ->altBody('Test Alt Body')
-            ->send();
-
-        $this->assertTrue($result);
+        $this->assertTrue($mailer->send());
     }
 
     /**
@@ -92,13 +96,13 @@ class MailerAccountsTest extends TestCase
      */
     public function testThrowsExceptionWhenNoRecepientAddressIsProvided(string $mailerService): void
     {
-        $mailer = new $mailerService(MailerAccountConfig::fromArray($this->config));
+        $mailer = new $mailerService(MailerAccountConfig::fromArray(self::CONFIG));
 
         $this->expectException(InvalidRecipientAddressException::class);
 
-        $mailer->subject('Test Email')
-            ->from('from@example.com', 'From Test Name')
-            ->body('Test Body')
+        $mailer->subject(self::SUBJECT)
+            ->from(self::FROM_EMAIL, self::FROM_NAME)
+            ->body(self::BODY)
             ->send();
     }
 
@@ -107,13 +111,13 @@ class MailerAccountsTest extends TestCase
      */
     public function testThrowsExceptionWhenNoFromAddressIsProvided(string $mailerService): void
     {
-        $mailer = new $mailerService(MailerAccountConfig::fromArray($this->config));
+        $mailer = new $mailerService(MailerAccountConfig::fromArray(self::CONFIG));
 
         $this->expectException(InvalidFromAddressException::class);
 
-        $mailer->subject('Test Email')
-            ->addAddress('address@example.com', 'Adress Name')
-            ->body('Test Body')
+        $mailer->subject(self::SUBJECT)
+            ->addAddress(self::ADDRESS_EMAIL, self::ADDRESS_NAME)
+            ->body(self::BODY)
             ->send();
     }
 
@@ -122,14 +126,14 @@ class MailerAccountsTest extends TestCase
      */
     public function testThrowsExceptionWhenNoBodyIsProvided(string $mailerService): void
     {
-        $mailer = new $mailerService(MailerAccountConfig::fromArray($this->config));
+        $mailer = new $mailerService(MailerAccountConfig::fromArray(self::CONFIG));
 
         $this->expectException(EmptyBodyException::class);
 
         $mailer
-            ->subject('Test Email')
-            ->from('from@example.com', 'From Name')
-            ->addAddress('address@example.com', 'Adress Name')
+            ->subject(self::SUBJECT)
+            ->from(self::FROM_EMAIL, self::FROM_NAME)
+            ->addAddress(self::ADDRESS_EMAIL, self::ADDRESS_NAME)
             ->send();
     }
 
@@ -138,13 +142,11 @@ class MailerAccountsTest extends TestCase
      */
     public function testPriority(string $mailerService): void
     {
-        $mailer = new $mailerService(MailerAccountConfig::fromArray($this->config));
-
-        $mailer
+        $mailer = (new $mailerService(MailerAccountConfig::fromArray(self::CONFIG)))
             ->subject('Test Priority')
-            ->from('from@example.com', 'From Name')
-            ->addAddress('address@example.com', 'Adress Name')
-            ->body('Test Body')
+            ->from(self::FROM_EMAIL, self::FROM_NAME)
+            ->addAddress(self::ADDRESS_EMAIL, self::ADDRESS_NAME)
+            ->body(self::BODY)
             ->priority(Priority::HIGH);
 
         $this->assertTrue($mailer->send());
@@ -155,14 +157,12 @@ class MailerAccountsTest extends TestCase
      */
     public function testReplyTo(string $mailerService): void
     {
-        $mailer = new $mailerService(MailerAccountConfig::fromArray($this->config));
-
-        $mailer
+        $mailer = (new $mailerService(MailerAccountConfig::fromArray(self::CONFIG)))
             ->subject('Test Reply To')
-            ->from('from@example.com', 'From Name')
-            ->addAddress('address@example.com', 'Adress Name')
-            ->body('Test Body')
-            ->addReplyTo('replyto@example.com', 'Reply To');
+            ->from(self::FROM_EMAIL, self::FROM_NAME)
+            ->addAddress(self::ADDRESS_EMAIL, self::ADDRESS_NAME)
+            ->body(self::BODY)
+            ->addReplyTo(self::REPLY_TO_EMAIL, self::REPLY_TO_NAME);
 
         $this->assertTrue($mailer->send());
     }
@@ -172,14 +172,12 @@ class MailerAccountsTest extends TestCase
      */
     public function testCC(string $mailerService): void
     {
-        $mailer = new $mailerService(MailerAccountConfig::fromArray($this->config));
-
-        $mailer
+        $mailer = (new $mailerService(MailerAccountConfig::fromArray(self::CONFIG)))
             ->subject('Test CC')
-            ->from('from@example.com', 'From Name')
-            ->addAddress('address@example.com', 'Adress Name')
-            ->body('Test Body')
-            ->addCC('cc@example.com', 'CC Name');
+            ->from(self::FROM_EMAIL, self::FROM_NAME)
+            ->addAddress(self::ADDRESS_EMAIL, self::ADDRESS_NAME)
+            ->body(self::BODY)
+            ->addCC(self::ADD_CC_EMAIL, self::ADD_CC_NAME);
 
         $this->assertTrue($mailer->send());
     }
@@ -189,15 +187,13 @@ class MailerAccountsTest extends TestCase
      */
     public function testBCC(string $mailerService): void
     {
-        $mailer = new $mailerService(MailerAccountConfig::fromArray($this->config));
-
-        $mailer
+        $mailer = (new $mailerService(MailerAccountConfig::fromArray(self::CONFIG)))
             ->subject('Test BCC')
-            ->from('from@example.com', 'From Name')
-            ->addAddress('address@example.com', 'Adress Name')
-            ->body('Test Body')
-            ->addCC('cc@example.com', 'CC Name')
-            ->addBCC('bcc@example.com', 'BCC Name');
+            ->from(self::FROM_EMAIL, self::FROM_NAME)
+            ->addAddress(self::ADDRESS_EMAIL, self::ADDRESS_NAME)
+            ->body(self::BODY)
+            ->addCC(self::ADD_CC_EMAIL, self::ADD_CC_NAME)
+            ->addBCC(self::ADD_BCC_EMAIL, self::ADD_BCC_NAME);
 
         $this->assertTrue($mailer->send());
     }
@@ -205,15 +201,13 @@ class MailerAccountsTest extends TestCase
     /**
      * @dataProvider mailerAccountProvider
      */
-    public function testaddAttachment(string $mailerService): void
+    public function testAddAttachment(string $mailerService): void
     {
-        $mailer = new $mailerService(MailerAccountConfig::fromArray($this->config));
-
-        $mailer
+        $mailer = (new $mailerService(MailerAccountConfig::fromArray(self::CONFIG)))
             ->subject('Test Attatchment')
-            ->from('from@example.com', 'From Name')
-            ->addAddress('address@example.com', 'Adress Name')
-            ->body('Test Body')
+            ->from(self::FROM_EMAIL, self::FROM_NAME)
+            ->addAddress(self::ADDRESS_EMAIL, self::ADDRESS_NAME)
+            ->body(self::BODY)
             ->addAttachment(__DIR__ . '/support/test_file.txt', 'Test File');
 
         $this->assertTrue($mailer->send());
@@ -222,14 +216,12 @@ class MailerAccountsTest extends TestCase
     /**
      * @dataProvider mailerAccountProvider
      */
-    public function testaddEmbeddedImage(string $mailerService): void
+    public function testAddEmbeddedImage(string $mailerService): void
     {
-        $mailer = new $mailerService(MailerAccountConfig::fromArray($this->config));
-
-        $mailer
+        $mailer = (new $mailerService(MailerAccountConfig::fromArray(self::CONFIG)))
             ->subject('Test Embedded Image')
-            ->from('from@example.com', 'From Name')
-            ->addAddress('address@example.com', 'Adress Name')
+            ->from(self::FROM_EMAIL, self::FROM_NAME)
+            ->addAddress(self::ADDRESS_EMAIL, self::ADDRESS_NAME)
             ->body('<img src="cid:image1" alt="Embedded Image">')
             ->addEmbeddedImage(__DIR__ . '/support/test_image.jpg', 'image1', 'image.jpg');
 

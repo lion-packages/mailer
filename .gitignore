@@ -1,5 +1,2 @@
 /vendor/
-/resources/
-index.php
-.env
 .phpunit.result.cache
