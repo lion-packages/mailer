@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace LionMailer;
+namespace Lion\Mailer;
 
-use LionMailer\Accounts\PHPMailerAccount;
-use LionMailer\Accounts\SymfonyMailerAccount;
+use Lion\Mailer\Accounts\PHPMailerAccount;
+use Lion\Mailer\Accounts\SymfonyMailerAccount;
 
 enum AccountType: string
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace LionMailer;
+namespace Lion\Mailer;
 
-use LionMailer\Exceptions\MailerAccountConfigException;
+use Lion\Mailer\Exceptions\MailerAccountConfigException;
 
 class MailerAccountConfig
 {

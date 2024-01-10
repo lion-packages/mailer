@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use LionMailer\AccountType;
-use LionMailer\Exceptions\MailerAccountConfigException;
-use LionMailer\Mailer;
-use LionMailer\MailerAccountInterface;
-use PHPUnit\Framework\TestCase;
+use Lion\Mailer\AccountType;
+use Lion\Mailer\Exceptions\MailerAccountConfigException;
+use Lion\Mailer\Mailer;
+use Lion\Mailer\MailerAccountInterface;
+use Lion\Test\Test;
 use Tests\Provider\MailerProviderTrait;
 
-class MailerTest extends TestCase
+class MailerTest extends Test
 {
     use MailerProviderTrait;
 

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace LionMailer\Accounts;
+namespace Lion\Mailer\Accounts;
 
-use LionMailer\Exceptions\EmptyBodyException;
-use LionMailer\Exceptions\InvalidFromAddressException;
-use LionMailer\Exceptions\InvalidRecipientAddressException;
-use LionMailer\MailerAccountConfig;
-use LionMailer\MailerAccountInterface;
-use LionMailer\Priority;
+use Lion\Mailer\Exceptions\EmptyBodyException;
+use Lion\Mailer\Exceptions\InvalidFromAddressException;
+use Lion\Mailer\Exceptions\InvalidRecipientAddressException;
+use Lion\Mailer\MailerAccountConfig;
+use Lion\Mailer\MailerAccountInterface;
+use Lion\Mailer\Priority;
 use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\Transport;
 use Symfony\Component\Mime\Address;

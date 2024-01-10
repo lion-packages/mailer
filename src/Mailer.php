@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace LionMailer;
+namespace Lion\Mailer;
 
-use LionMailer\MailerAccountConfig;
-use LionMailer\MailerAccountInterface;
-use LionMailer\Accounts\PHPMailerAccount;
-use LionMailer\Accounts\SymfonyMailerAccount;
-use LionMailer\Exceptions\MailerAccountConfigException;
+use Lion\Mailer\MailerAccountConfig;
+use Lion\Mailer\MailerAccountInterface;
+use Lion\Mailer\Accounts\PHPMailerAccount;
+use Lion\Mailer\Accounts\SymfonyMailerAccount;
+use Lion\Mailer\Exceptions\MailerAccountConfigException;
 
 class Mailer
 {

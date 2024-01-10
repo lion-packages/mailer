@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace LionMailer\Accounts;
+namespace Lion\Mailer\Accounts;
 
-use LionMailer\Priority;
+use Lion\Mailer\Priority;
 use PHPMailer\PHPMailer\PHPMailer;
-use LionMailer\MailerAccountInterface;
-use LionMailer\Exceptions\EmptyBodyException;
-use LionMailer\MailerAccountConfig;
-use LionMailer\Exceptions\InvalidFromAddressException;
-use LionMailer\Exceptions\InvalidRecipientAddressException;
+use Lion\Mailer\MailerAccountInterface;
+use Lion\Mailer\Exceptions\EmptyBodyException;
+use Lion\Mailer\MailerAccountConfig;
+use Lion\Mailer\Exceptions\InvalidFromAddressException;
+use Lion\Mailer\Exceptions\InvalidRecipientAddressException;
 
 class PHPMailerAccount implements MailerAccountInterface
 {

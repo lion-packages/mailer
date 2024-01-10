@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LionMailer;
+namespace Lion\Mailer;
 
 enum Priority: int
 {
