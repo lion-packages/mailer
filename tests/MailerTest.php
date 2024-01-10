@@ -8,10 +8,10 @@ use Lion\Mailer\AccountType;
 use Lion\Mailer\Exceptions\MailerAccountConfigException;
 use Lion\Mailer\Mailer;
 use Lion\Mailer\MailerAccountInterface;
-use PHPUnit\Framework\TestCase;
+use Lion\Test\Test;
 use Tests\Provider\MailerProviderTrait;
 
-class MailerTest extends TestCase
+class MailerTest extends Test
 {
     use MailerProviderTrait;
 

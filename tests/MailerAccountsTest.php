@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Tests;
 
 use Lion\Mailer\Priority;
-use PHPUnit\Framework\TestCase;
 use Lion\Mailer\MailerAccountInterface;
 use Lion\Mailer\Exceptions\EmptyBodyException;
 use Lion\Mailer\MailerAccountConfig;
 use Lion\Mailer\Exceptions\InvalidFromAddressException;
 use Lion\Mailer\Exceptions\InvalidRecipientAddressException;
 use Lion\Mailer\Exceptions\MailerAccountConfigException;
+use Lion\Test\Test;
 use Tests\Provider\MailerAccountsProviderTrait;
 
-class MailerAccountsTest extends TestCase
+class MailerAccountsTest extends Test
 {
     use MailerAccountsProviderTrait;
 
