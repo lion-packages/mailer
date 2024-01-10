@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Provider;
 
-use LionMailer\AccountType;
+use Lion\Mailer\AccountType;
 
 trait MailerProviderTrait
 {

@@ -5,7 +5,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "LionMailer\\": "src/"
+            "Lion\\Mailer\\": "src/"
         }
     },
     "autoload-dev": {

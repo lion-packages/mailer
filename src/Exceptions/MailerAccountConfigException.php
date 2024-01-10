@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace  LionMailer\Exceptions;
+namespace Lion\Mailer\Exceptions;
 
 use Exception;
 

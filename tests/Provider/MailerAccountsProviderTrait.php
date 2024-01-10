@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Provider;
 
-use LionMailer\Accounts\PHPMailerAccount;
-use LionMailer\Accounts\SymfonyMailerAccount;
+use Lion\Mailer\Accounts\PHPMailerAccount;
+use Lion\Mailer\Accounts\SymfonyMailerAccount;
 
 trait MailerAccountsProviderTrait
 {

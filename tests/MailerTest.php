@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use LionMailer\AccountType;
-use LionMailer\Exceptions\MailerAccountConfigException;
-use LionMailer\Mailer;
-use LionMailer\MailerAccountInterface;
+use Lion\Mailer\AccountType;
+use Lion\Mailer\Exceptions\MailerAccountConfigException;
+use Lion\Mailer\Mailer;
+use Lion\Mailer\MailerAccountInterface;
 use PHPUnit\Framework\TestCase;
 use Tests\Provider\MailerProviderTrait;
 

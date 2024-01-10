@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace LionMailer;
+namespace Lion\Mailer;
 
-use LionMailer\MailerAccountConfig;
-use LionMailer\Priority;
+use Lion\Mailer\MailerAccountConfig;
+use Lion\Mailer\Priority;
 
 interface MailerAccountInterface
 {
