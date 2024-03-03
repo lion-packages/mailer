@@ -7,11 +7,28 @@ namespace Lion\Mailer;
 use Lion\Mailer\Accounts\PHPMailerAccount;
 use Lion\Mailer\Accounts\SymfonyMailerAccount;
 
+/**
+ * Enumeration for service configuration
+ *
+ * @package Lion\Mailer
+ */
 enum AccountType: string
 {
-    case PHPMailer = "phpmailer";
-    case Symfony = "symfony";
+    /**
+     * [Defines the PHPMailer service]
+     */
+    case PHPMailer = 'phpmailer';
 
+    /**
+     * [Defines the SymfonyMailer service]
+     */
+    case Symfony = 'symfony';
+
+    /**
+     * Returns the defined service
+     *
+     * @return string
+     */
     public function getClassName(): string
     {
         return match ($this) {
