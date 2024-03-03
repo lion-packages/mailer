@@ -10,11 +10,35 @@ use Lion\Mailer\Accounts\PHPMailerAccount;
 use Lion\Mailer\Accounts\SymfonyMailerAccount;
 use Lion\Mailer\Exceptions\MailerAccountConfigException;
 
+/**
+ * Initializes all services and their defined configurations
+ *
+ * @package Lion\Mailer
+ */
 class Mailer
 {
+    /**
+     * [List of all defined accounts]
+     *
+     * @var array $accounts
+     */
     private static array $accounts;
+
+    /**
+     * [Default account]
+     *
+     * @var string $default
+     */
     private static string $default;
 
+    /**
+     * Initialize account settings
+     *
+     * @param  array $accounts [List of all defined accounts]
+     * @param  string $default [Default account]
+     *
+     * @return void
+     */
     public static function initialize(array $accounts, string $default = 'default'): void
     {
         if (count($accounts) <= 0) {
@@ -38,11 +62,23 @@ class Mailer
         }
     }
 
+    /**
+     * Returns a service defined by default
+     *
+     * @return MailerAccountInterface
+     */
     public static function default(): MailerAccountInterface
     {
         return self::account(self::$default);
     }
 
+    /**
+     * Change the default account to the defined account
+     *
+     * @param string $name [Default account]
+     *
+     * @return void
+     */
     public static function setDefault(string $name): void
     {
         if (!isset(self::$accounts[$name])) {
@@ -52,6 +88,14 @@ class Mailer
         self::$default = $name;
     }
 
+    /**
+     * Add an account
+     *
+     * @param string $name [Account name]
+     * @param array $config [Configuration data for the account]
+     *
+     * @return void
+     */
     public static function addAccount(string $name, array $config): void
     {
         if (!in_array($config["type"], ['phpmailer', 'symfony'])) {
@@ -65,6 +109,13 @@ class Mailer
         ];
     }
 
+    /**
+     * Get an account
+     *
+     * @param  string $name [Account name]
+     *
+     * @return MailerAccountInterface
+     */
     public static function account(string $name): MailerAccountInterface
     {
         $account = self::$accounts[$name] ?? ['type' => null];

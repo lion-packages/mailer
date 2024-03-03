@@ -6,8 +6,23 @@ namespace Lion\Mailer;
 
 use Lion\Mailer\Exceptions\MailerAccountConfigException;
 
+/**
+ * Create email account settings
+ *
+ * @package Lion\Mailer
+ */
 class MailerAccountConfig
 {
+    /**
+     * Class constructor
+     *
+     * @param string $host [Service host]
+     * @param string $username [Account username]
+     * @param string $password [Account password]
+     * @param int $port [Service port]
+     * @param string $encryption [Account encryption]
+     * @param bool $debug [Service debug]
+     */
     public function __construct(
         public readonly string $host,
         public readonly string $username,
@@ -21,6 +36,13 @@ class MailerAccountConfig
         }
     }
 
+    /**
+     * Create the configuration object from an array
+     *
+     * @param  array $config [Configuration data array]
+     *
+     * @return self
+     */
     public static function fromArray(array $config): self
     {
         return new self(
