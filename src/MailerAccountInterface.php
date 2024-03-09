@@ -48,7 +48,7 @@ interface MailerAccountInterface
      *
      * @return MailerAccountInterface
      */
-    public function from(string $address, ?string $name = null): MailerAccountInterface;
+    public function from(string $address, string $name = ''): MailerAccountInterface;
 
     /**
      * Defines the destination account
@@ -58,7 +58,7 @@ interface MailerAccountInterface
      *
      * @return MailerAccountInterface
      */
-    public function addAddress(string $address, ?string $name = null): MailerAccountInterface;
+    public function addAddress(string $address, string $name = ''): MailerAccountInterface;
 
     /**
      * Account that answers email
@@ -68,7 +68,7 @@ interface MailerAccountInterface
      *
      * @return MailerAccountInterface
      */
-    public function addReplyTo(string $address, ?string $name = null): MailerAccountInterface;
+    public function addReplyTo(string $address, string $name = ''): MailerAccountInterface;
 
     /**
      * Send a copy of the message to other accounts
@@ -78,7 +78,7 @@ interface MailerAccountInterface
      *
      * @return MailerAccountInterface
      */
-    public function addCC(string $address, ?string $name = null): MailerAccountInterface;
+    public function addCC(string $address, string $name = ''): MailerAccountInterface;
 
     /**
      * Send a blind copy of the message to other accounts
@@ -88,7 +88,7 @@ interface MailerAccountInterface
      *
      * @return MailerAccountInterface
      */
-    public function addBCC(string $address, ?string $name = null): MailerAccountInterface;
+    public function addBCC(string $address, string $name = ''): MailerAccountInterface;
 
     /**
      * Attaches defined files

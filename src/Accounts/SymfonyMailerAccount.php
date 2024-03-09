@@ -65,7 +65,7 @@ class SymfonyMailerAccount implements MailerAccountInterface
     /**
      * {@inheritdoc}
      */
-    public function from(string $address, ?string $name = null): MailerAccountInterface
+    public function from(string $address, string $name = ''): MailerAccountInterface
     {
         $this->email->from(new Address($address, $name));
 
@@ -85,13 +85,9 @@ class SymfonyMailerAccount implements MailerAccountInterface
     /**
      * {@inheritdoc}
      */
-    public function addAddress(string $address, ?string $name = null): MailerAccountInterface
+    public function addAddress(string $address, string $name = ''): MailerAccountInterface
     {
-        if (!$name) {
-            $this->email->addTo($address);
-        } else {
-            $this->email->addTo(new Address($address, $name));
-        }
+        $this->email->addTo(new Address($address, $name));
 
         return $this;
     }
@@ -99,13 +95,9 @@ class SymfonyMailerAccount implements MailerAccountInterface
     /**
      * {@inheritdoc}
      */
-    public function addReplyTo(string $address, ?string $name = null): MailerAccountInterface
+    public function addReplyTo(string $address, string $name = ''): MailerAccountInterface
     {
-        if (!$name) {
-            $this->email->addReplyTo($address);
-        } else {
-            $this->email->addReplyTo(new Address($address, $name));
-        }
+        $this->email->addReplyTo(new Address($address, $name));
 
         return $this;
     }
@@ -113,13 +105,9 @@ class SymfonyMailerAccount implements MailerAccountInterface
     /**
      * {@inheritdoc}
      */
-    public function addCC(string $address, $name = null): MailerAccountInterface
+    public function addCC(string $address, string $name = ''): MailerAccountInterface
     {
-        if (!$name) {
-            $this->email->addCc($address);
-        } else {
-            $this->email->addCc(new Address($address, $name));
-        }
+        $this->email->addCc(new Address($address, $name));
 
         return $this;
     }
@@ -127,13 +115,9 @@ class SymfonyMailerAccount implements MailerAccountInterface
     /**
      * {@inheritdoc}
      */
-    public function addBCC(string $address, $name = null): MailerAccountInterface
+    public function addBCC(string $address, string $name = ''): MailerAccountInterface
     {
-        if (!$name) {
-            $this->email->addBcc($address);
-        } else {
-            $this->email->addBcc(new Address($address, $name));
-        }
+        $this->email->addBcc(new Address($address, $name));
 
         return $this;
     }
