@@ -227,4 +227,21 @@ class MailerAccountsTest extends Test
 
         $this->assertTrue($mailer->send());
     }
+
+    /**
+     * @dataProvider mailerAccountProvider
+     */
+    public function testMethodsWithOptionalNameArguments(string $mailerService): void
+    {
+        $mailer = (new $mailerService(MailerAccountConfig::fromArray(self::CONFIG)))
+            ->subject('Test Optional Name Arguments')
+            ->from(self::FROM_EMAIL)
+            ->addAddress(self::ADDRESS_EMAIL)
+            ->addReplyTo(self::REPLY_TO_EMAIL)
+            ->addCC(self::ADD_CC_EMAIL)
+            ->addBCC(self::ADD_BCC_EMAIL)
+            ->body(self::BODY);
+
+        $this->assertTrue($mailer->send());
+    }
 }

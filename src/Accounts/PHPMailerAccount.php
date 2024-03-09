@@ -75,7 +75,7 @@ class PHPMailerAccount implements MailerAccountInterface
     /**
      * {@inheritdoc}
      */
-    public function from(string $address, ?string $name = null): MailerAccountInterface
+    public function from(string $address, string $name = ''): MailerAccountInterface
     {
         $this->mailer->setFrom($address, $name);
 
@@ -85,7 +85,7 @@ class PHPMailerAccount implements MailerAccountInterface
     /**
      * {@inheritdoc}
      */
-    public function addAddress(string $address, ?string $name = null): MailerAccountInterface
+    public function addAddress(string $address, string $name = ''): MailerAccountInterface
     {
         $this->mailer->addAddress($address, $name);
 
@@ -95,7 +95,7 @@ class PHPMailerAccount implements MailerAccountInterface
     /**
      * {@inheritdoc}
      */
-    public function addReplyTo(string $address, ?string $name = null): MailerAccountInterface
+    public function addReplyTo(string $address, string $name = ''): MailerAccountInterface
     {
         $this->mailer->addReplyTo($address, $name);
 
@@ -105,7 +105,7 @@ class PHPMailerAccount implements MailerAccountInterface
     /**
      * {@inheritdoc}
      */
-    public function addCC(string $address, ?string $name = null): MailerAccountInterface
+    public function addCC(string $address, string $name = ''): MailerAccountInterface
     {
         $this->mailer->addCC($address, $name);
 
@@ -115,7 +115,7 @@ class PHPMailerAccount implements MailerAccountInterface
     /**
      * {@inheritdoc}
      */
-    public function addBCC(string $address, ?string $name = null): MailerAccountInterface
+    public function addBCC(string $address, string $name = ''): MailerAccountInterface
     {
         $this->mailer->addBCC($address, $name);
 
