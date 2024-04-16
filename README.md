@@ -1,7 +1,7 @@
 <p align="center">
   <a href="https://lion-client.vercel.app/" target="_blank">
     <img
-         src="https://user-images.githubusercontent.com/56183278/230516080-096130be-e474-4f3a-a78a-44d3973ff715.png"
+         src="https://github.com/lion-packages/mailer/assets/132396080/b4a5f07a-0035-4f07-b998-ef3adb32eaec"
          width="300"
          alt="Lion-Framework Logo"
     >
@@ -14,6 +14,13 @@
   <img src="http://poser.pugx.org/lion/mailer/license" alt="License">
   <img src="http://poser.pugx.org/lion/mailer/require/php" alt="PHP Version Require">
 </p>
+
+## About Lion-Mailer
+
+Lion-Mailer is a library that simplifies email sending via SMTP. It is easily extendable and currently supports the following drivers:
+
+-   PHPMailer
+-   Symfony
 
 ## Install
 ```bash

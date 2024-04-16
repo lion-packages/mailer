@@ -1,4 +1,3 @@
-version: "3.8"
 services:
     app:
         container_name: mailer-app
@@ -11,7 +10,7 @@ services:
             - ./:/var/www/html
         networks:
             - lion_mailer
-    mailhog: 
+    mailhog:
         image: mailhog/mailhog
         container_name: mailer-mailhog
         restart: unless-stopped
