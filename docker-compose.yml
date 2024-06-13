@@ -9,7 +9,8 @@ services:
         volumes:
             - ./:/var/www/html
         networks:
-            - lion_mailer
+            - lion
+
     mailhog:
         image: mailhog/mailhog
         container_name: mailer-mailhog
@@ -18,6 +19,7 @@ services:
             - "8025:8025"
             - "1025:1025"
         networks:
-            - lion_mailer
+            - lion
+
 networks:
-    lion_mailer:
+    lion:
