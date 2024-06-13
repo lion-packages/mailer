@@ -12,6 +12,7 @@ use Lion\Mailer\Exceptions\InvalidFromAddressException;
 use Lion\Mailer\Exceptions\InvalidRecipientAddressException;
 use Lion\Mailer\Exceptions\MailerAccountConfigException;
 use Lion\Test\Test;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Provider\MailerAccountsProviderTrait;
 
 class MailerAccountsTest extends Test
@@ -49,9 +50,7 @@ class MailerAccountsTest extends Test
     const BODY = 'Test Body';
     const ALT_BODY = 'Test Alt Body';
 
-    /**
-     * @dataProvider mailerAccountProvider
-     */
+    #[DataProvider('mailerAccountProvider')]
     public function testCanBeInstatiated(string $mailerService): void
     {
         $mailer = new $mailerService(MailerAccountConfig::fromArray(self::CONFIG));
@@ -59,9 +58,7 @@ class MailerAccountsTest extends Test
         $this->assertInstanceOf(MailerAccountInterface::class, $mailer);
     }
 
-    /**
-     * @dataProvider mailerAccountProvider
-     */
+    #[DataProvider('mailerAccountProvider')]
     public function testThrowsExceptionOnInvalidConfig(string $mailerService): void
     {
         $this->expectException(MailerAccountConfigException::class);
@@ -69,9 +66,7 @@ class MailerAccountsTest extends Test
         new $mailerService(MailerAccountConfig::fromArray([...self::CONFIG, 'encryption' => self::TEST]));
     }
 
-    /**
-     * @dataProvider mailerAccountProvider
-     */
+    #[DataProvider('mailerAccountProvider')]
     public function testCanSendEmail(string $mailerService): void
     {
         $mailer = (new $mailerService(MailerAccountConfig::fromArray(self::CONFIG)))
@@ -91,9 +86,7 @@ class MailerAccountsTest extends Test
         $this->assertTrue($mailer->send());
     }
 
-    /**
-     * @dataProvider mailerAccountProvider
-     */
+    #[DataProvider('mailerAccountProvider')]
     public function testThrowsExceptionWhenNoRecepientAddressIsProvided(string $mailerService): void
     {
         $mailer = new $mailerService(MailerAccountConfig::fromArray(self::CONFIG));
@@ -106,9 +99,7 @@ class MailerAccountsTest extends Test
             ->send();
     }
 
-    /**
-     * @dataProvider mailerAccountProvider
-     */
+    #[DataProvider('mailerAccountProvider')]
     public function testThrowsExceptionWhenNoFromAddressIsProvided(string $mailerService): void
     {
         $mailer = new $mailerService(MailerAccountConfig::fromArray(self::CONFIG));
@@ -121,9 +112,7 @@ class MailerAccountsTest extends Test
             ->send();
     }
 
-    /**
-     * @dataProvider mailerAccountProvider
-     */
+    #[DataProvider('mailerAccountProvider')]
     public function testThrowsExceptionWhenNoBodyIsProvided(string $mailerService): void
     {
         $mailer = new $mailerService(MailerAccountConfig::fromArray(self::CONFIG));
@@ -137,9 +126,7 @@ class MailerAccountsTest extends Test
             ->send();
     }
 
-    /**
-     * @dataProvider mailerAccountProvider
-     */
+    #[DataProvider('mailerAccountProvider')]
     public function testPriority(string $mailerService): void
     {
         $mailer = (new $mailerService(MailerAccountConfig::fromArray(self::CONFIG)))
@@ -152,9 +139,7 @@ class MailerAccountsTest extends Test
         $this->assertTrue($mailer->send());
     }
 
-    /**
-     * @dataProvider mailerAccountProvider
-     */
+    #[DataProvider('mailerAccountProvider')]
     public function testReplyTo(string $mailerService): void
     {
         $mailer = (new $mailerService(MailerAccountConfig::fromArray(self::CONFIG)))
@@ -167,9 +152,7 @@ class MailerAccountsTest extends Test
         $this->assertTrue($mailer->send());
     }
 
-    /**
-     * @dataProvider mailerAccountProvider
-     */
+    #[DataProvider('mailerAccountProvider')]
     public function testCC(string $mailerService): void
     {
         $mailer = (new $mailerService(MailerAccountConfig::fromArray(self::CONFIG)))
@@ -182,9 +165,7 @@ class MailerAccountsTest extends Test
         $this->assertTrue($mailer->send());
     }
 
-    /**
-     * @dataProvider mailerAccountProvider
-     */
+    #[DataProvider('mailerAccountProvider')]
     public function testBCC(string $mailerService): void
     {
         $mailer = (new $mailerService(MailerAccountConfig::fromArray(self::CONFIG)))
@@ -198,9 +179,7 @@ class MailerAccountsTest extends Test
         $this->assertTrue($mailer->send());
     }
 
-    /**
-     * @dataProvider mailerAccountProvider
-     */
+    #[DataProvider('mailerAccountProvider')]
     public function testAddAttachment(string $mailerService): void
     {
         $mailer = (new $mailerService(MailerAccountConfig::fromArray(self::CONFIG)))
@@ -213,9 +192,7 @@ class MailerAccountsTest extends Test
         $this->assertTrue($mailer->send());
     }
 
-    /**
-     * @dataProvider mailerAccountProvider
-     */
+    #[DataProvider('mailerAccountProvider')]
     public function testAddEmbeddedImage(string $mailerService): void
     {
         $mailer = (new $mailerService(MailerAccountConfig::fromArray(self::CONFIG)))
@@ -228,9 +205,7 @@ class MailerAccountsTest extends Test
         $this->assertTrue($mailer->send());
     }
 
-    /**
-     * @dataProvider mailerAccountProvider
-     */
+    #[DataProvider('mailerAccountProvider')]
     public function testMethodsWithOptionalNameArguments(string $mailerService): void
     {
         $mailer = (new $mailerService(MailerAccountConfig::fromArray(self::CONFIG)))
