@@ -9,6 +9,7 @@ use Lion\Mailer\Exceptions\MailerAccountConfigException;
 use Lion\Mailer\Mailer;
 use Lion\Mailer\MailerAccountInterface;
 use Lion\Test\Test;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Provider\MailerProviderTrait;
 
 class MailerTest extends Test
@@ -37,9 +38,7 @@ class MailerTest extends Test
         $this->assertInstanceOf(MailerAccountInterface::class, Mailer::account(self::SUPPORT));
     }
 
-    /**
-     * @dataProvider accountProvider
-     */
+    #[DataProvider('accountProvider')]
     public function testMailerReturnsCorrespondingAccountType(AccountType $type, array $config): void
     {
         Mailer::addAccount($config['name'], $config);
