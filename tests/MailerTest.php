@@ -16,9 +16,9 @@ class MailerTest extends Test
 {
     use MailerProviderTrait;
 
-    const INVALID = 'invalid';
-    const DEFAULT_ = 'default';
-    const SUPPORT = 'support';
+    const string INVALID = 'invalid';
+    const string DEFAULT_ = 'default';
+    const string SUPPORT = 'support';
 
     private array $accounts;
 
@@ -30,6 +30,9 @@ class MailerTest extends Test
         ];
     }
 
+    /**
+     * @throws MailerAccountConfigException
+     */
     public function testMailerClassWorks(): void
     {
         Mailer::initialize($this->accounts);
@@ -38,6 +41,9 @@ class MailerTest extends Test
         $this->assertInstanceOf(MailerAccountInterface::class, Mailer::account(self::SUPPORT));
     }
 
+    /**
+     * @throws MailerAccountConfigException
+     */
     #[DataProvider('accountProvider')]
     public function testMailerReturnsCorrespondingAccountType(AccountType $type, array $config): void
     {
@@ -46,6 +52,9 @@ class MailerTest extends Test
         $this->assertInstanceOf($type->getClassName(), Mailer::account($config['name']));
     }
 
+    /**
+     * @throws MailerAccountConfigException
+     */
     public function testMailerReturnsAccountObject(): void
     {
         Mailer::initialize($this->accounts);
@@ -53,6 +62,9 @@ class MailerTest extends Test
         $this->assertInstanceOf(MailerAccountInterface::class, Mailer::account(self::DEFAULT_));
     }
 
+    /**
+     * @throws MailerAccountConfigException
+     */
     public function testMailerThrowsExceptionWhenAccountIsNotFound(): void
     {
         Mailer::initialize($this->accounts);
@@ -69,6 +81,9 @@ class MailerTest extends Test
         Mailer::initialize([]);
     }
 
+    /**
+     * @throws MailerAccountConfigException
+     */
     public function testDefaultAccountIsSetWhenCallingInitializeMethod(): void
     {
         Mailer::initialize($this->accounts);
@@ -77,6 +92,9 @@ class MailerTest extends Test
     }
 
 
+    /**
+     * @throws MailerAccountConfigException
+     */
     public function testWhenProvidingOneAccountThisIsSetAsDefault(): void
     {
         Mailer::initialize(['test' => self::SYMFONY_TEST_ACCOUNT]);
@@ -91,7 +109,7 @@ class MailerTest extends Test
         Mailer::initialize([
             self::DEFAULT_ => [
                 ...$this::PHPMAILER_TEST_ACCOUNT,
-                'type' => self::INVALID
+                'type' => self::INVALID,
             ],
         ]);
     }

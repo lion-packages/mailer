@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Lion\Mailer;
 
-use Lion\Mailer\MailerAccountConfig;
-use Lion\Mailer\Priority;
-
 /**
  * Defines the configuration of native functions to send emails
  *
@@ -44,7 +41,7 @@ interface MailerAccountInterface
      * Define who sends the email
      *
      * @param  string $address [Mail account]
-     * @param  string|null $name [Account name]
+     * @param  string $name [Account name]
      *
      * @return MailerAccountInterface
      */
@@ -54,7 +51,7 @@ interface MailerAccountInterface
      * Defines the destination account
      *
      * @param string $address [Destination account]
-     * @param string|null $name [Account name]
+     * @param string $name [Account name]
      *
      * @return MailerAccountInterface
      */
@@ -64,7 +61,7 @@ interface MailerAccountInterface
      * Account that answers email
      *
      * @param string $address [Account that responds]
-     * @param string|null $name [Account name]
+     * @param string $name [Account name]
      *
      * @return MailerAccountInterface
      */
@@ -74,7 +71,7 @@ interface MailerAccountInterface
      * Send a copy of the message to other accounts
      *
      * @param string $address [Destination account]
-     * @param string|null $name [Account name]
+     * @param string $name [Account name]
      *
      * @return MailerAccountInterface
      */
@@ -84,7 +81,7 @@ interface MailerAccountInterface
      * Send a blind copy of the message to other accounts
      *
      * @param string $address [Destination account]
-     * @param string|null $name [Account name]
+     * @param string $name [Account name]
      *
      * @return MailerAccountInterface
      */
