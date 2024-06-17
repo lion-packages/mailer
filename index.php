@@ -15,7 +15,7 @@ Mailer::initialize([
         'username' => 'root@dev.com',
         'password' => 'lion',
         'port' => 1025,
-        'encryption' => 'false',
+        'encryption' => false,
         'debug' => false
     ],
 ], 'lion-mailer');

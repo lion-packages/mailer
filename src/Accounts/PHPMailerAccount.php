@@ -4,23 +4,27 @@ declare(strict_types=1);
 
 namespace Lion\Mailer\Accounts;
 
-use Lion\Mailer\Priority;
-use PHPMailer\PHPMailer\PHPMailer;
-use Lion\Mailer\MailerAccountInterface;
 use Lion\Mailer\Exceptions\EmptyBodyException;
-use Lion\Mailer\MailerAccountConfig;
 use Lion\Mailer\Exceptions\InvalidFromAddressException;
 use Lion\Mailer\Exceptions\InvalidRecipientAddressException;
+use Lion\Mailer\MailerAccountConfig;
+use Lion\Mailer\MailerAccountInterface;
+use Lion\Mailer\Priority;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
 
 /**
  * Service to send emails with PHPMailer
+ *
+ * @property PHPMailer $mailer [PHPMailer - PHP email creation and transport
+ * class]
  *
  * @package Lion\Mailer\Accounts
  */
 class PHPMailerAccount implements MailerAccountInterface
 {
     /**
-     * [Object of PHPMailer class]
+     * [PHPMailer - PHP email creation and transport class]
      *
      * @var PHPMailer $mailer
      */
@@ -35,9 +39,11 @@ class PHPMailerAccount implements MailerAccountInterface
 
         $this->mailer->isSMTP();
 
-        $this->mailer->isHTML(true);
+        $this->mailer->isHTML();
 
-        $this->mailer->SMTPAuth = true;
+        $this->mailer->SMTPAuth = !$config->encryption ? false : true;
+
+        $this->mailer->SMTPSecure = !$config->encryption ? false : $config->encryption;
 
         $this->mailer->SMTPDebug = 0;
 
@@ -48,8 +54,6 @@ class PHPMailerAccount implements MailerAccountInterface
         $this->mailer->Password = $config->password;
 
         $this->mailer->Port = $config->port;
-
-        $this->mailer->SMTPSecure = $config->encryption;
     }
 
     /**
@@ -74,6 +78,8 @@ class PHPMailerAccount implements MailerAccountInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @throws Exception
      */
     public function from(string $address, string $name = ''): MailerAccountInterface
     {
@@ -84,6 +90,8 @@ class PHPMailerAccount implements MailerAccountInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @throws Exception
      */
     public function addAddress(string $address, string $name = ''): MailerAccountInterface
     {
@@ -94,6 +102,8 @@ class PHPMailerAccount implements MailerAccountInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @throws Exception
      */
     public function addReplyTo(string $address, string $name = ''): MailerAccountInterface
     {
@@ -104,6 +114,8 @@ class PHPMailerAccount implements MailerAccountInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @throws Exception
      */
     public function addCC(string $address, string $name = ''): MailerAccountInterface
     {
@@ -114,6 +126,8 @@ class PHPMailerAccount implements MailerAccountInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @throws Exception
      */
     public function addBCC(string $address, string $name = ''): MailerAccountInterface
     {
@@ -124,6 +138,8 @@ class PHPMailerAccount implements MailerAccountInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @throws Exception
      */
     public function addAttachment(string $path, ?string $fileName = null): MailerAccountInterface
     {
@@ -134,6 +150,8 @@ class PHPMailerAccount implements MailerAccountInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @throws Exception
      */
     public function addEmbeddedImage(
         string $path,
@@ -168,6 +186,11 @@ class PHPMailerAccount implements MailerAccountInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @throws Exception
+     * @throws InvalidFromAddressException
+     * @throws InvalidRecipientAddressException
+     * @throws EmptyBodyException
      */
     public function send(): bool
     {

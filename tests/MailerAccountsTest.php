@@ -19,36 +19,36 @@ class MailerAccountsTest extends Test
 {
     use MailerAccountsProviderTrait;
 
-    const CONFIG = [
+    const array CONFIG = [
         'host' => 'mailhog',
         'username' => 'username@examplfe.com',
         'password' => 'password',
         'port' => 1025,
-        'encryption' => 'false',
+        'encryption' => false,
         'debug' => false
     ];
-    const TEST = 'test';
-    const SUBJECT = 'Test Email';
-    const FROM_EMAIL = 'from@example.com';
-    const FROM_NAME = 'From Name';
-    const ADDRESS_EMAIL = 'address@example.com';
-    const ADDRESS_NAME = 'Adress Name';
-    const ADDRESS_EMAIL_SECOND = 'address2@example.com';
-    const ADDRESS_NAME_SECOND = 'Adress Name 2';
-    const REPLY_TO_EMAIL = 'replyto@example.com';
-    const REPLY_TO_NAME = 'Reply To Name';
-    const REPLY_TO_EMAIL_SECOND = 'replyto2@example.com';
-    const REPLY_TO_NAME_SECOND = 'Reply To Name 2';
-    const ADD_CC_EMAIL = 'cc@example.com';
-    const ADD_CC_NAME = 'CC Name';
-    const ADD_CC_EMAIL_SECOND = 'cc2@example.com';
-    const ADD_CC_NAME_SECOND = 'CC Name 2';
-    const ADD_BCC_EMAIL = 'bcc@example.com';
-    const ADD_BCC_NAME = 'BCC Name';
-    const ADD_BCC_EMAIL_SECOND = 'bcc2@example.com';
-    const ADD_BCC_NAME_SECOND = 'BCC Name 2';
-    const BODY = 'Test Body';
-    const ALT_BODY = 'Test Alt Body';
+    const string TEST = 'test';
+    const string SUBJECT = 'Test Email';
+    const string FROM_EMAIL = 'from@example.com';
+    const string FROM_NAME = 'From Name';
+    const string ADDRESS_EMAIL = 'address@example.com';
+    const string ADDRESS_NAME = 'Adress Name';
+    const string ADDRESS_EMAIL_SECOND = 'address2@example.com';
+    const string ADDRESS_NAME_SECOND = 'Adress Name 2';
+    const string REPLY_TO_EMAIL = 'replyto@example.com';
+    const string REPLY_TO_NAME = 'Reply To Name';
+    const string REPLY_TO_EMAIL_SECOND = 'replyto2@example.com';
+    const string REPLY_TO_NAME_SECOND = 'Reply To Name 2';
+    const string ADD_CC_EMAIL = 'cc@example.com';
+    const string ADD_CC_NAME = 'CC Name';
+    const string ADD_CC_EMAIL_SECOND = 'cc2@example.com';
+    const string ADD_CC_NAME_SECOND = 'CC Name 2';
+    const string ADD_BCC_EMAIL = 'bcc@example.com';
+    const string ADD_BCC_NAME = 'BCC Name';
+    const string ADD_BCC_EMAIL_SECOND = 'bcc2@example.com';
+    const string ADD_BCC_NAME_SECOND = 'BCC Name 2';
+    const string BODY = 'Test Body';
+    const string ALT_BODY = 'Test Alt Body';
 
     #[DataProvider('mailerAccountProvider')]
     public function testCanBeInstatiated(string $mailerService): void
@@ -63,7 +63,10 @@ class MailerAccountsTest extends Test
     {
         $this->expectException(MailerAccountConfigException::class);
 
-        new $mailerService(MailerAccountConfig::fromArray([...self::CONFIG, 'encryption' => self::TEST]));
+        new $mailerService(MailerAccountConfig::fromArray([
+            ...self::CONFIG,
+            'encryption' => self::TEST,
+        ]));
     }
 
     #[DataProvider('mailerAccountProvider')]
@@ -73,7 +76,7 @@ class MailerAccountsTest extends Test
             ->subject(self::SUBJECT)
             ->from(self::FROM_EMAIL, self::FROM_NAME)
             ->addAddress(self::ADDRESS_EMAIL, self::ADDRESS_NAME)
-            ->addAddress(self::ADDRESS_EMAIL_SECOND, Self::ADDRESS_NAME_SECOND)
+            ->addAddress(self::ADDRESS_EMAIL_SECOND, self::ADDRESS_NAME_SECOND)
             ->addReplyTo(self::REPLY_TO_EMAIL, self::REPLY_TO_NAME)
             ->addReplyTo(self::REPLY_TO_EMAIL_SECOND, self::REPLY_TO_NAME_SECOND)
             ->addCC(self::ADD_CC_EMAIL, self::ADD_CC_NAME)
@@ -199,7 +202,11 @@ class MailerAccountsTest extends Test
             ->subject('Test Embedded Image')
             ->from(self::FROM_EMAIL, self::FROM_NAME)
             ->addAddress(self::ADDRESS_EMAIL, self::ADDRESS_NAME)
-            ->body('<img src="cid:image1" alt="Embedded Image">')
+            ->body(
+                <<<HTML
+                <img src="cid:image1" alt="Embedded Image">
+                HTML
+            )
             ->addEmbeddedImage(__DIR__ . '/support/test_image.jpg', 'image1', 'image.jpg');
 
         $this->assertTrue($mailer->send());

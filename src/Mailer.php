@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Lion\Mailer;
 
-use Lion\Mailer\MailerAccountConfig;
-use Lion\Mailer\MailerAccountInterface;
 use Lion\Mailer\Accounts\PHPMailerAccount;
 use Lion\Mailer\Accounts\SymfonyMailerAccount;
 use Lion\Mailer\Exceptions\MailerAccountConfigException;
 
 /**
  * Initializes all services and their defined configurations
+ *
+ * @property array $accounts [List of all defined accounts]
+ * @property string $default [Default account]
  *
  * @package Lion\Mailer
  */
@@ -34,10 +35,12 @@ class Mailer
     /**
      * Initialize account settings
      *
-     * @param  array $accounts [List of all defined accounts]
-     * @param  string $default [Default account]
+     * @param array $accounts [List of all defined accounts]
+     * @param string $default [Default account]
      *
      * @return void
+     *
+     * @throws MailerAccountConfigException
      */
     public static function initialize(array $accounts, string $default = 'default'): void
     {
@@ -66,6 +69,8 @@ class Mailer
      * Returns a service defined by default
      *
      * @return MailerAccountInterface
+     *
+     * @throws MailerAccountConfigException
      */
     public static function default(): MailerAccountInterface
     {
@@ -78,6 +83,8 @@ class Mailer
      * @param string $name [Default account]
      *
      * @return void
+     *
+     * @throws MailerAccountConfigException
      */
     public static function setDefault(string $name): void
     {
@@ -95,10 +102,12 @@ class Mailer
      * @param array $config [Configuration data for the account]
      *
      * @return void
+     *
+     * @throws MailerAccountConfigException
      */
     public static function addAccount(string $name, array $config): void
     {
-        if (!in_array($config["type"], ['phpmailer', 'symfony'])) {
+        if (!in_array($config['type'], ['phpmailer', 'symfony'], true)) {
             throw MailerAccountConfigException::invalidMailerAccountType();
         }
 
@@ -112,9 +121,11 @@ class Mailer
     /**
      * Get an account
      *
-     * @param  string $name [Account name]
+     * @param string $name [Account name]
      *
      * @return MailerAccountInterface
+     *
+     * @throws MailerAccountConfigException
      */
     public static function account(string $name): MailerAccountInterface
     {

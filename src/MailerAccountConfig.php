@@ -5,9 +5,17 @@ declare(strict_types=1);
 namespace Lion\Mailer;
 
 use Lion\Mailer\Exceptions\MailerAccountConfigException;
+use PHPMailer\PHPMailer\PHPMailer;
 
 /**
  * Create email account settings
+ *
+ * @property string $host [Service host]
+ * @property string $username [Account username]
+ * @property string $password [Account password]
+ * @property int $port [Service port]
+ * @property string $encryption [Account encryption]
+ * @property bool $debug [Service debug]
  *
  * @package Lion\Mailer
  */
@@ -28,10 +36,10 @@ class MailerAccountConfig
         public readonly string $username,
         public readonly string $password,
         public readonly int $port = 465,
-        public readonly string $encryption = 'tls',
+        public readonly bool|string $encryption = 'tls',
         public readonly bool $debug = false,
     ) {
-        if (!in_array($encryption, ['tls', 'ssl', 'false'])) {
+        if (!in_array($encryption, [PHPMailer::ENCRYPTION_SMTPS, PHPMailer::ENCRYPTION_STARTTLS, false], true)) {
             throw MailerAccountConfigException::invalidSMTPEncryptionProtocol();
         }
     }
@@ -39,7 +47,7 @@ class MailerAccountConfig
     /**
      * Create the configuration object from an array
      *
-     * @param  array $config [Configuration data array]
+     * @param array $config [Configuration data array]
      *
      * @return self
      */

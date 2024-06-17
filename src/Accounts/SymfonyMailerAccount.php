@@ -10,6 +10,7 @@ use Lion\Mailer\Exceptions\InvalidRecipientAddressException;
 use Lion\Mailer\MailerAccountConfig;
 use Lion\Mailer\MailerAccountInterface;
 use Lion\Mailer\Priority;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\Transport;
 use Symfony\Component\Mime\Address;
@@ -19,6 +20,9 @@ use Symfony\Component\Mime\Part\File;
 
 /**
  * Service to send emails with SymfonyMailer
+ *
+ * @property Email $email [Object of Email class]
+ * @property string $dns [Defines the DNS configuration for the symfony service]
  *
  * @package Lion\Mailer\Accounts
  */
@@ -49,7 +53,7 @@ class SymfonyMailerAccount implements MailerAccountInterface
 
         $this->dns .= "?encryption=$config->encryption";
 
-        $this->dns .= "&debug=" . $config->debug ? 'true' : 'false';
+        $this->dns .= "&debug=" . ($config->debug ? 'true' : 'false');
     }
 
     /**
@@ -171,6 +175,11 @@ class SymfonyMailerAccount implements MailerAccountInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @throws TransportExceptionInterface
+     * @throws InvalidFromAddressException
+     * @throws InvalidRecipientAddressException
+     * @throws EmptyBodyException
      */
     public function send(): bool
     {
