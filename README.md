@@ -9,10 +9,10 @@
 </p>
 
 <p align="center">
-  <img src="http://poser.pugx.org/lion/mailer/v" alt="Latest Stable Version">
-  <img src="http://poser.pugx.org/lion/mailer/downloads" alt="Total Downloads">
-  <img src="http://poser.pugx.org/lion/mailer/license" alt="License">
-  <img src="http://poser.pugx.org/lion/mailer/require/php" alt="PHP Version Require">
+  <img src="https://poser.pugx.org/lion/mailer/v" alt="Latest Stable Version">
+  <img src="https://poser.pugx.org/lion/mailer/downloads" alt="Total Downloads">
+  <img src="https://poser.pugx.org/lion/mailer/license" alt="License">
+  <img src="https://poser.pugx.org/lion/mailer/require/php" alt="PHP Version Require">
 </p>
 
 ## About Lion-Mailer
@@ -23,6 +23,7 @@ Lion-Mailer is a library that simplifies email sending via SMTP. It is easily ex
 -   Symfony
 
 ## Install
+
 ```bash
 composer require lion/mailer
 ```
