@@ -10,17 +10,17 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/" 
+            "Tests\\": "tests/"
         }
     },
     "require": {
-        "php": ">=8.3",
-        "symfony/mime": "^6.3",
-        "phpmailer/phpmailer": "^6.9",
-        "symfony/mailer": "^7.0"
+        "php": ">=8.3"
     },
     "require-dev": {
         "lion/test": "^2.0",
-        "phpunit/phpunit": "^11.2"
+        "phpunit/phpunit": "^11.2",
+        "symfony/mime": "^6.3",
+        "phpmailer/phpmailer": "^6.9",
+        "symfony/mailer": "^7.0"
     }
 }
