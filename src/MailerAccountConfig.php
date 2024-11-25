@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Lion\Mailer;
 
 use Lion\Mailer\Exceptions\MailerAccountConfigException;
-use PHPMailer\PHPMailer\PHPMailer;
 
 /**
  * Create email account settings
@@ -22,14 +21,41 @@ use PHPMailer\PHPMailer\PHPMailer;
 class MailerAccountConfig
 {
     /**
+     * [Specify a tls encryption]
+     *
+     * @const ENCRYPTION_STARTTLS
+     */
+    public const string ENCRYPTION_STARTTLS = 'tls';
+
+    /**
+     * [Specify a ssl encryption]
+     *
+     * @const ENCRYPTION_SMTPS
+     */
+    public const string ENCRYPTION_SMTPS = 'ssl';
+
+    /**
+     * [List of available encryption's]
+     *
+     * @const ENCRYPTION
+     */
+    private const array ENCRYPTION = [
+        self::ENCRYPTION_STARTTLS,
+        self::ENCRYPTION_SMTPS,
+        false,
+    ];
+
+    /**
      * Class constructor
      *
      * @param string $host [Service host]
      * @param string $username [Account username]
      * @param string $password [Account password]
      * @param int $port [Service port]
-     * @param string $encryption [Account encryption]
+     * @param bool|string $encryption [Account encryption]
      * @param bool $debug [Service debug]
+     *
+     * @throws MailerAccountConfigException
      */
     public function __construct(
         public readonly string $host,
@@ -39,7 +65,7 @@ class MailerAccountConfig
         public readonly bool|string $encryption = 'tls',
         public readonly bool $debug = false,
     ) {
-        if (!in_array($encryption, [PHPMailer::ENCRYPTION_SMTPS, PHPMailer::ENCRYPTION_STARTTLS, false], true)) {
+        if (!in_array($encryption, self::ENCRYPTION, true)) {
             throw MailerAccountConfigException::invalidSMTPEncryptionProtocol();
         }
     }
@@ -50,6 +76,8 @@ class MailerAccountConfig
      * @param array $config [Configuration data array]
      *
      * @return self
+     *
+     * @throws MailerAccountConfigException
      */
     public static function fromArray(array $config): self
     {
