@@ -25,7 +25,11 @@ Lion-Mailer is a library that simplifies email sending via SMTP. It is easily ex
 ## Install
 
 ```bash
-composer require lion/mailer
+composer require lion/mailer symfony/mailer
+```
+
+```bash
+composer require lion/mailer phpmailer/phpmailer
 ```
 
 ## License
