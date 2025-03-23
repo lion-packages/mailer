@@ -18,9 +18,9 @@
     },
     "require-dev": {
         "lion/test": "^2.0",
-        "phpunit/phpunit": "^11.2",
         "symfony/mime": "^6.3",
         "phpmailer/phpmailer": "^6.9",
-        "symfony/mailer": "^7.0"
+        "symfony/mailer": "^7.0",
+        "phpunit/phpunit": "^12.0"
     }
 }
