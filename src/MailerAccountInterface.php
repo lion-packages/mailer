@@ -22,7 +22,7 @@ interface MailerAccountInterface
     /**
      * Defines the priority level
      *
-     * @param  Priority $priority [Priority level]
+     * @param Priority $priority [Priority level]
      *
      * @return MailerAccountInterface
      */
@@ -31,7 +31,7 @@ interface MailerAccountInterface
     /**
      * Mail subject
      *
-     * @param  string $subject [Subject]
+     * @param string $subject [Subject]
      *
      * @return MailerAccountInterface
      */
@@ -40,8 +40,8 @@ interface MailerAccountInterface
     /**
      * Define who sends the email
      *
-     * @param  string $address [Mail account]
-     * @param  string $name [Account name]
+     * @param string $address [Mail account]
+     * @param string $name [Account name]
      *
      * @return MailerAccountInterface
      */
@@ -103,21 +103,23 @@ interface MailerAccountInterface
      * @param string $path [File path]
      * @param string $cid [Content ID of the attachment; Use this to reference
      * the content when using an embedded image in HTML]
-     * @param string|null $name [Overrides the attachment filename]
+     * @param string $name [Overrides the attachment filename]
      * @param string|null $mimeType [File MIME type (by default mapped from the
      * `$path` filename's extension)]
+     *
+     * @return MailerAccountInterface
      */
     public function addEmbeddedImage(
         string $path,
         string $cid,
-        ?string $name = null,
+        string $name = '',
         ?string $mimeType = null
     ): MailerAccountInterface;
 
     /**
      * Defines the body of the email
      *
-     * @param  string $body [Email body]
+     * @param string $body [Email body]
      *
      * @return MailerAccountInterface
      */
@@ -128,7 +130,7 @@ interface MailerAccountInterface
      * email clients that do not support HTML or that have the HTML display
      * option disabled
      *
-     * @param  string $altBody [Email body]
+     * @param string $altBody [Email body]
      *
      * @return MailerAccountInterface
      */

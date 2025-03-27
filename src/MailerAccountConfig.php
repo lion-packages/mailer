@@ -9,13 +9,6 @@ use Lion\Mailer\Exceptions\MailerAccountConfigException;
 /**
  * Create email account settings
  *
- * @property string $host [Service host]
- * @property string $username [Account username]
- * @property string $password [Account password]
- * @property int $port [Service port]
- * @property string $encryption [Account encryption]
- * @property bool $debug [Service debug]
- *
  * @package Lion\Mailer
  */
 class MailerAccountConfig
@@ -62,7 +55,7 @@ class MailerAccountConfig
         public readonly string $username,
         public readonly string $password,
         public readonly int $port = 465,
-        public readonly bool|string $encryption = 'tls',
+        public readonly bool|string $encryption = self::ENCRYPTION_STARTTLS,
         public readonly bool $debug = false,
     ) {
         if (!in_array($encryption, self::ENCRYPTION, true)) {
@@ -73,7 +66,16 @@ class MailerAccountConfig
     /**
      * Create the configuration object from an array
      *
-     * @param array $config [Configuration data array]
+     * @param array{
+     *     name: string,
+     *     type: string,
+     *     host: string,
+     *     username: string,
+     *     password: string,
+     *     port: int,
+     *     encryption: bool,
+     *     debug?: bool
+     * } $config [Configuration data array]
      *
      * @return self
      *
@@ -87,7 +89,7 @@ class MailerAccountConfig
             $config['password'],
             $config['port'],
             $config['encryption'],
-            $config['debug']
+            empty($config['debug']) ? false : $config['debug'],
         );
     }
 }
