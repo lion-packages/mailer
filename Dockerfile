@@ -65,5 +65,3 @@ RUN echo 'alias ls="logo-ls"' >> /home/lion/.zshrc \
 # Copy Data
 COPY . .
 # ----------------------------------------------------------------------------------------------------------------------
-# Init Project
-CMD php -S 0.0.0.0:8001 -t tests/build/coverage
