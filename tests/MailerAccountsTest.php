@@ -20,7 +20,7 @@ class MailerAccountsTest extends Test
     use MailerAccountsProviderTrait;
 
     private const array CONFIG = [
-        'host' => 'mailhog',
+        'host' => HOST,
         'username' => 'username@examplfe.com',
         'password' => 'password',
         'port' => 1025,
