@@ -8,7 +8,7 @@ use Lion\Mailer\AccountType;
 
 trait MailerProviderTrait
 {
-    const PHPMAILER_TEST_ACCOUNT = [
+    private const array PHPMAILER_TEST_ACCOUNT = [
         'name' => 'default',
         'type' => 'phpmailer',
         'host' => 'host',
@@ -19,7 +19,7 @@ trait MailerProviderTrait
         'debug' => false
     ];
 
-    const SYMFONY_TEST_ACCOUNT = [
+    private const array SYMFONY_TEST_ACCOUNT = [
         'name' => 'support',
         'type' => 'symfony',
         'host' => 'host',

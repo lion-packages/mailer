@@ -16,9 +16,9 @@ class MailerTest extends Test
 {
     use MailerProviderTrait;
 
-    const string INVALID = 'invalid';
-    const string DEFAULT_ = 'default';
-    const string SUPPORT = 'support';
+    private const string INVALID = 'invalid';
+    private const string DEFAULT_ = 'default';
+    private const string SUPPORT = 'support';
 
     private array $accounts;
 

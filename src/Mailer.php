@@ -11,9 +11,6 @@ use Lion\Mailer\Exceptions\MailerAccountConfigException;
 /**
  * Initializes all services and their defined configurations
  *
- * @property array $accounts [List of all defined accounts]
- * @property string $default [Default account]
- *
  * @package Lion\Mailer
  */
 class Mailer
@@ -21,7 +18,11 @@ class Mailer
     /**
      * [List of all defined accounts]
      *
-     * @var array $accounts
+     * @var array<string, array{
+     *      name: string,
+     *      type: string,
+     *      config: MailerAccountConfig
+     *  }> $accounts
      */
     private static array $accounts;
 
@@ -35,7 +36,16 @@ class Mailer
     /**
      * Initialize account settings
      *
-     * @param array $accounts [List of all defined accounts]
+     * @param array<string, array{
+     *      name: string,
+     *      type: string,
+     *      host: string,
+     *      username: string,
+     *      password: string,
+     *      port: int,
+     *      encryption: bool,
+     *      debug?: bool
+     * }> $accounts [List of all defined accounts]
      * @param string $default [Default account]
      *
      * @return void
@@ -99,7 +109,16 @@ class Mailer
      * Add an account
      *
      * @param string $name [Account name]
-     * @param array $config [Configuration data for the account]
+     * @param array{
+     *     name: string,
+     *     type: string,
+     *     host: string,
+     *     username: string,
+     *     password: string,
+     *     port: int,
+     *     encryption: bool,
+     *     debug?: bool
+     * } $config [Configuration data for the account]
      *
      * @return void
      *

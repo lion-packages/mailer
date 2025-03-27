@@ -21,9 +21,6 @@ use Symfony\Component\Mime\Part\File;
 /**
  * Service to send emails with SymfonyMailer
  *
- * @property Email $email [Object of Email class]
- * @property string $dns [Defines the DNS configuration for the symfony service]
- *
  * @package Lion\Mailer\Accounts
  */
 class SymfonyMailerAccount implements MailerAccountInterface
@@ -43,21 +40,21 @@ class SymfonyMailerAccount implements MailerAccountInterface
     private string $dns;
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function __construct(protected MailerAccountConfig $config)
     {
         $this->email = new Email();
 
-        $this->dns = "smtp://$config->username:$config->password@$config->host:$config->port";
+        $this->dns = "smtp://{$config->username}:{$config->password}@{$config->host}:{$config->port}";
 
-        $this->dns .= "?encryption=$config->encryption";
+        $this->dns .= "?encryption={$config->encryption}";
 
         $this->dns .= "&debug=" . ($config->debug ? 'true' : 'false');
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function priority(Priority $priority): MailerAccountInterface
     {
@@ -67,17 +64,19 @@ class SymfonyMailerAccount implements MailerAccountInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function from(string $address, string $name = ''): MailerAccountInterface
     {
-        $this->email->from(new Address($address, $name));
+        $address = new Address($address, $name);
+
+        $this->email->from($address);
 
         return $this;
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function subject(string $subject): MailerAccountInterface
     {
@@ -87,57 +86,69 @@ class SymfonyMailerAccount implements MailerAccountInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function addAddress(string $address, string $name = ''): MailerAccountInterface
     {
-        $this->email->addTo(new Address($address, $name));
+        $address = new Address($address, $name);
+
+        $this->email->addTo($address);
 
         return $this;
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function addReplyTo(string $address, string $name = ''): MailerAccountInterface
     {
-        $this->email->addReplyTo(new Address($address, $name));
+        $address = new Address($address, $name);
+
+        $this->email->addReplyTo($address);
 
         return $this;
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function addCC(string $address, string $name = ''): MailerAccountInterface
     {
-        $this->email->addCc(new Address($address, $name));
+        $address = new Address($address, $name);
+
+        $this->email->addCc($address);
 
         return $this;
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function addBCC(string $address, string $name = ''): MailerAccountInterface
     {
-        $this->email->addBcc(new Address($address, $name));
+        $address = new Address($address, $name);
+
+        $this->email->addBcc($address);
 
         return $this;
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function addAttachment(string $path, ?string $fileName = null): MailerAccountInterface
     {
-        $this->email->addPart(new DataPart(new File($path, $fileName)));
+        $file = new File($path, $fileName);
+
+        $dataPart = new DataPart($file);
+
+        $this->email->addPart($dataPart);
 
         return $this;
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function addEmbeddedImage(
         string $path,
@@ -145,16 +156,18 @@ class SymfonyMailerAccount implements MailerAccountInterface
         ?string $name = null,
         ?string $mimeType = null
     ): MailerAccountInterface {
-        $this->email->addPart(
-            (new DataPart(new File($path), $cid, $mimeType))
-                ->asInline()
-        );
+        $file = new File($path);
+
+        $dataPart = new DataPart($file, $cid, $mimeType)
+            ->asInline();
+
+        $this->email->addPart($dataPart);
 
         return $this;
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function body(string $body): MailerAccountInterface
     {
@@ -164,7 +177,7 @@ class SymfonyMailerAccount implements MailerAccountInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function altBody(string $altBody): MailerAccountInterface
     {
@@ -174,7 +187,7 @@ class SymfonyMailerAccount implements MailerAccountInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @throws TransportExceptionInterface
      * @throws InvalidFromAddressException

@@ -19,7 +19,7 @@ class MailerAccountsTest extends Test
 {
     use MailerAccountsProviderTrait;
 
-    const array CONFIG = [
+    private const array CONFIG = [
         'host' => 'mailhog',
         'username' => 'username@examplfe.com',
         'password' => 'password',
@@ -27,28 +27,28 @@ class MailerAccountsTest extends Test
         'encryption' => false,
         'debug' => false
     ];
-    const string TEST = 'test';
-    const string SUBJECT = 'Test Email';
-    const string FROM_EMAIL = 'from@example.com';
-    const string FROM_NAME = 'From Name';
-    const string ADDRESS_EMAIL = 'address@example.com';
-    const string ADDRESS_NAME = 'Adress Name';
-    const string ADDRESS_EMAIL_SECOND = 'address2@example.com';
-    const string ADDRESS_NAME_SECOND = 'Adress Name 2';
-    const string REPLY_TO_EMAIL = 'replyto@example.com';
-    const string REPLY_TO_NAME = 'Reply To Name';
-    const string REPLY_TO_EMAIL_SECOND = 'replyto2@example.com';
-    const string REPLY_TO_NAME_SECOND = 'Reply To Name 2';
-    const string ADD_CC_EMAIL = 'cc@example.com';
-    const string ADD_CC_NAME = 'CC Name';
-    const string ADD_CC_EMAIL_SECOND = 'cc2@example.com';
-    const string ADD_CC_NAME_SECOND = 'CC Name 2';
-    const string ADD_BCC_EMAIL = 'bcc@example.com';
-    const string ADD_BCC_NAME = 'BCC Name';
-    const string ADD_BCC_EMAIL_SECOND = 'bcc2@example.com';
-    const string ADD_BCC_NAME_SECOND = 'BCC Name 2';
-    const string BODY = 'Test Body';
-    const string ALT_BODY = 'Test Alt Body';
+    private const string TEST = 'test';
+    private const string SUBJECT = 'Test Email';
+    private const string FROM_EMAIL = 'from@example.com';
+    private const string FROM_NAME = 'From Name';
+    private const string ADDRESS_EMAIL = 'address@example.com';
+    private const string ADDRESS_NAME = 'Adress Name';
+    private const string ADDRESS_EMAIL_SECOND = 'address2@example.com';
+    private const string ADDRESS_NAME_SECOND = 'Adress Name 2';
+    private const string REPLY_TO_EMAIL = 'replyto@example.com';
+    private const string REPLY_TO_NAME = 'Reply To Name';
+    private const string REPLY_TO_EMAIL_SECOND = 'replyto2@example.com';
+    private const string REPLY_TO_NAME_SECOND = 'Reply To Name 2';
+    private const string ADD_CC_EMAIL = 'cc@example.com';
+    private const string ADD_CC_NAME = 'CC Name';
+    private const string ADD_CC_EMAIL_SECOND = 'cc2@example.com';
+    private const string ADD_CC_NAME_SECOND = 'CC Name 2';
+    private const string ADD_BCC_EMAIL = 'bcc@example.com';
+    private const string ADD_BCC_NAME = 'BCC Name';
+    private const string ADD_BCC_EMAIL_SECOND = 'bcc2@example.com';
+    private const string ADD_BCC_NAME_SECOND = 'BCC Name 2';
+    private const string BODY = 'Test Body';
+    private const string ALT_BODY = 'Test Alt Body';
 
     #[DataProvider('mailerAccountProvider')]
     public function testCanBeInstatiated(string $mailerService): void
