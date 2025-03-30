@@ -1,37 +1,51 @@
+# 🦁 Lion-Mailer
+
 <p align="center">
-  <a href="https://lion-client.vercel.app/" target="_blank">
-    <img
-         src="https://github.com/lion-packages/mailer/assets/132396080/b4a5f07a-0035-4f07-b998-ef3adb32eaec"
-         width="300"
-         alt="Lion-Framework Logo"
+  <a href="https://dev.lion-packages.com/docs/library/content" target="_blank">
+    <img 
+        src="https://github.com/lion-packages/framework/assets/56183278/60871c9f-1c93-4481-8c1e-d70282b33254"
+        width="450" 
+        alt="Lion-Packages Logo"
     >
   </a>
 </p>
 
 <p align="center">
-  <img src="https://poser.pugx.org/lion/mailer/v" alt="Latest Stable Version">
-  <img src="https://poser.pugx.org/lion/mailer/downloads" alt="Total Downloads">
-  <img src="https://poser.pugx.org/lion/mailer/license" alt="License">
-  <img src="https://poser.pugx.org/lion/mailer/require/php" alt="PHP Version Require">
+  <a href="https://packagist.org/packages/lion/mailer">
+    <img src="https://poser.pugx.org/lion/mailer/v" alt="Latest Stable Version">
+  </a>
+  <a href="https://packagist.org/packages/lion/mailer">
+    <img src="https://poser.pugx.org/lion/mailer/downloads" alt="Total Downloads">
+  </a>
+  <a href="https://github.com/lion-packages/mailer/blob/main/LICENSE">
+    <img src="https://poser.pugx.org/lion/mailer/license" alt="License">
+  </a>
+  <a href="https://www.php.net/">
+    <img src="https://poser.pugx.org/lion/mailer/require/php" alt="PHP Version Require">
+  </a>
 </p>
 
-## About Lion-Mailer
+🚀 **Lion-Mailer** Library created to facilitate sending email based on different services.
 
-Lion-Mailer is a library that simplifies email sending via SMTP. It is easily extendable and currently supports the following drivers:
+---
 
--   PHPMailer
--   Symfony
+## 📖 Features
 
-## Install
+✔️ Send basic emails with custom headers.  
+✔️ Send emails with dynamic files and images.  
+✔️ Allows you to choose an email's priority.  
+✔️ Allows adding multiple recipients, CC accounts, and CCO copies in the email.  
+
+---
+
+## 📦 Installation
+
+Install the mailer using **Composer**:
 
 ```bash
-composer require lion/mailer symfony/mailer
+composer require lion/mailer
 ```
 
-```bash
-composer require lion/mailer phpmailer/phpmailer
-```
+## 📝 License
 
-## License
-
-The <strong>mailer</strong> library is open source software licensed under the [MIT License](https://github.com/lion-packages/mailer/blob/main/LICENSE).
+The <strong>mailer</strong> is open-sourced software licensed under the [MIT License](https://github.com/lion-packages/mailer/blob/main/LICENSE).
