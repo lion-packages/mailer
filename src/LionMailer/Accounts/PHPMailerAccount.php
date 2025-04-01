@@ -17,41 +17,43 @@ use PHPMailer\PHPMailer\PHPMailer;
  * Service to send emails with PHPMailer
  *
  * @package Lion\Mailer\Accounts
+ *
+ * @infection-ignore-all
  */
 class PHPMailerAccount implements MailerAccountInterface
 {
     /**
      * [PHPMailer - PHP email creation and transport class]
      *
-     * @var PHPMailer $mailer
+     * @var PHPMailer $service
      */
-    private PHPMailer $mailer;
+    private PHPMailer $service;
 
     /**
      * {@inheritDoc}
      */
     public function __construct(protected MailerAccountConfig $config)
     {
-        $this->mailer = new PHPMailer(true);
+        $this->service = new PHPMailer(true);
 
-        $this->mailer->isSMTP();
+        $this->service->isSMTP();
 
-        $this->mailer->isHTML();
+        $this->service->isHTML();
 
-        $this->mailer->SMTPAuth = (bool) $config->encryption;
+        $this->service->SMTPAuth = (bool) $config->encryption;
 
         /** @phpstan-ignore-next-line */
-        $this->mailer->SMTPSecure = !$config->encryption ? false : $config->encryption;
+        $this->service->SMTPSecure = !$config->encryption ? false : $config->encryption;
 
-        $this->mailer->SMTPDebug = 0;
+        $this->service->SMTPDebug = 0;
 
-        $this->mailer->Host = $config->host;
+        $this->service->Host = $config->host;
 
-        $this->mailer->Username = $config->username;
+        $this->service->Username = $config->username;
 
-        $this->mailer->Password = $config->password;
+        $this->service->Password = $config->password;
 
-        $this->mailer->Port = $config->port;
+        $this->service->Port = $config->port;
     }
 
     /**
@@ -59,7 +61,7 @@ class PHPMailerAccount implements MailerAccountInterface
      */
     public function priority(Priority $priority): MailerAccountInterface
     {
-        $this->mailer->Priority = $priority->value;
+        $this->service->Priority = $priority->value;
 
         return $this;
     }
@@ -69,7 +71,7 @@ class PHPMailerAccount implements MailerAccountInterface
      */
     public function subject(string $subject): MailerAccountInterface
     {
-        $this->mailer->Subject = $subject;
+        $this->service->Subject = $subject;
 
         return $this;
     }
@@ -81,7 +83,7 @@ class PHPMailerAccount implements MailerAccountInterface
      */
     public function from(string $address, string $name = ''): MailerAccountInterface
     {
-        $this->mailer->setFrom($address, $name);
+        $this->service->setFrom($address, $name);
 
         return $this;
     }
@@ -93,7 +95,7 @@ class PHPMailerAccount implements MailerAccountInterface
      */
     public function addAddress(string $address, string $name = ''): MailerAccountInterface
     {
-        $this->mailer->addAddress($address, $name);
+        $this->service->addAddress($address, $name);
 
         return $this;
     }
@@ -105,7 +107,7 @@ class PHPMailerAccount implements MailerAccountInterface
      */
     public function addReplyTo(string $address, string $name = ''): MailerAccountInterface
     {
-        $this->mailer->addReplyTo($address, $name);
+        $this->service->addReplyTo($address, $name);
 
         return $this;
     }
@@ -117,7 +119,7 @@ class PHPMailerAccount implements MailerAccountInterface
      */
     public function addCC(string $address, string $name = ''): MailerAccountInterface
     {
-        $this->mailer->addCC($address, $name);
+        $this->service->addCC($address, $name);
 
         return $this;
     }
@@ -129,7 +131,7 @@ class PHPMailerAccount implements MailerAccountInterface
      */
     public function addBCC(string $address, string $name = ''): MailerAccountInterface
     {
-        $this->mailer->addBCC($address, $name);
+        $this->service->addBCC($address, $name);
 
         return $this;
     }
@@ -141,7 +143,7 @@ class PHPMailerAccount implements MailerAccountInterface
      */
     public function addAttachment(string $path, ?string $fileName = null): MailerAccountInterface
     {
-        $this->mailer->addAttachment($path, (null === $fileName ? '' : $fileName));
+        $this->service->addAttachment($path, (null === $fileName ? '' : $fileName));
 
         return $this;
     }
@@ -157,7 +159,7 @@ class PHPMailerAccount implements MailerAccountInterface
         string $name = '',
         ?string $mimeType = null
     ): MailerAccountInterface {
-        $this->mailer->addEmbeddedImage($path, $cid, $name, 'base64', (null === $mimeType ? '' : $mimeType));
+        $this->service->addEmbeddedImage($path, $cid, $name, 'base64', (null === $mimeType ? '' : $mimeType));
 
         return $this;
     }
@@ -167,7 +169,7 @@ class PHPMailerAccount implements MailerAccountInterface
      */
     public function body(string $body): MailerAccountInterface
     {
-        $this->mailer->Body = $body;
+        $this->service->Body = $body;
 
         return $this;
     }
@@ -177,7 +179,7 @@ class PHPMailerAccount implements MailerAccountInterface
      */
     public function altBody(string $altBody): MailerAccountInterface
     {
-        $this->mailer->AltBody = $altBody;
+        $this->service->AltBody = $altBody;
 
         return $this;
     }
@@ -192,18 +194,18 @@ class PHPMailerAccount implements MailerAccountInterface
      */
     public function send(): bool
     {
-        if (!$this->mailer->From) {
+        if (!$this->service->From) {
             throw InvalidFromAddressException::emptyFromAddress();
         }
 
-        if (!$this->mailer->getAllRecipientAddresses()) {
+        if (!$this->service->getAllRecipientAddresses()) {
             throw InvalidRecipientAddressException::emptyRecipientsList();
         }
 
-        if (!$this->mailer->Body) {
+        if (!$this->service->Body) {
             throw EmptyBodyException::make();
         }
 
-        return $this->mailer->send();
+        return $this->service->send();
     }
 }

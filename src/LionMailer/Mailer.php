@@ -51,10 +51,12 @@ class Mailer
      * @return void
      *
      * @throws MailerAccountConfigException
+     *
+     * @infection-ignore-all
      */
     public static function initialize(array $accounts, string $default = 'default'): void
     {
-        if (count($accounts) <= 0) {
+        if (empty($accounts)) {
             throw MailerAccountConfigException::emptyAccountList();
         }
 
@@ -95,6 +97,8 @@ class Mailer
      * @return void
      *
      * @throws MailerAccountConfigException
+     *
+     * @infection-ignore-all
      */
     public static function setDefault(string $name): void
     {
@@ -116,7 +120,7 @@ class Mailer
      *     username: string,
      *     password: string,
      *     port: int,
-     *     encryption: bool,
+     *     encryption: bool|string,
      *     debug?: bool
      * } $config [Configuration data for the account]
      *

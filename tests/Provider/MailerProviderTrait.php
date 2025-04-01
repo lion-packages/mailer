@@ -16,7 +16,7 @@ trait MailerProviderTrait
         'password' => 'password',
         'port' => 495,
         'encryption' => 'tls',
-        'debug' => false
+        'debug' => false,
     ];
 
     private const array SYMFONY_TEST_ACCOUNT = [
@@ -27,14 +27,35 @@ trait MailerProviderTrait
         'password' => 'password',
         'port' => 495,
         'encryption' => 'tls',
-        'debug' => false
+        'debug' => false,
     ];
 
+    /**
+     * @return array<int, array{
+     *     type: AccountType,
+     *     config: array{
+     *         name: string,
+     *         type: string,
+     *         host: string,
+     *         username: string,
+     *         password: string,
+     *         port: int,
+     *         encryption: bool|string,
+     *         debug?: bool,
+     *     }
+     * }>
+     */
     public static function accountProvider(): array
     {
         return [
-            [AccountType::PHPMailer, self::PHPMAILER_TEST_ACCOUNT],
-            [AccountType::Symfony, self::SYMFONY_TEST_ACCOUNT],
+            [
+                'type' => AccountType::PHPMailer,
+                'config' => self::PHPMAILER_TEST_ACCOUNT,
+            ],
+            [
+                'type' => AccountType::Symfony,
+                'config' => self::SYMFONY_TEST_ACCOUNT,
+            ],
         ];
     }
 }

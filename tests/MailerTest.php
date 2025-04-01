@@ -7,9 +7,12 @@ namespace Tests;
 use Lion\Mailer\AccountType;
 use Lion\Mailer\Exceptions\MailerAccountConfigException;
 use Lion\Mailer\Mailer;
+use Lion\Mailer\MailerAccountConfig;
 use Lion\Mailer\MailerAccountInterface;
 use Lion\Test\Test;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test as Testing;
+use ReflectionException;
 use Tests\Provider\MailerProviderTrait;
 
 class MailerTest extends Test
@@ -42,10 +45,65 @@ class MailerTest extends Test
     }
 
     /**
+     * @param $type AccountType
+     * @param array{
+     *      name: string,
+     *      type: string,
+     *      host: string,
+     *      username: string,
+     *      password: string,
+     *      port: int,
+     *      encryption: string,
+     *      debug?: bool
+     *  } $config
+     *
+     * @throws MailerAccountConfigException
+     * @throws ReflectionException
+     */
+    #[Testing]
+    #[DataProvider('accountProvider')]
+    public function addAccount(AccountType $type, array $config): void
+    {
+        $mailer = new Mailer();
+
+        $mailer->addAccount($config['name'], $config);
+
+        $this->initReflection($mailer);
+
+        $accounts = $this->getPrivateProperty('accounts');
+
+        $this->assertIsArray($accounts);
+        $this->assertNotEmpty($accounts);
+        $this->assertArrayHasKey($config['name'], $accounts);
+        $this->assertIsArray($accounts[$config['name']]);
+        $this->assertNotEmpty($accounts[$config['name']]);
+        $this->assertArrayHasKey('name', $accounts[$config['name']]);
+        $this->assertArrayHasKey('type', $accounts[$config['name']]);
+        $this->assertArrayHasKey('config', $accounts[$config['name']]);
+        $this->assertIsString($accounts[$config['name']]['name']);
+        $this->assertIsString($accounts[$config['name']]['type']);
+        $this->assertIsObject($accounts[$config['name']]['config']);
+        $this->assertInstanceOf(MailerAccountConfig::class, $accounts[$config['name']]['config']);
+    }
+
+    /**
+     * @param $type AccountType
+     * @param array{
+     *     name: string,
+     *     type: string,
+     *     host: string,
+     *     username: string,
+     *     password: string,
+     *     port: int,
+     *     encryption: string,
+     *     debug?: bool
+     * } $config
+     *
      * @throws MailerAccountConfigException
      */
+    #[Testing]
     #[DataProvider('accountProvider')]
-    public function testMailerReturnsCorrespondingAccountType(AccountType $type, array $config): void
+    public function account(AccountType $type, array $config): void
     {
         Mailer::addAccount($config['name'], $config);
 

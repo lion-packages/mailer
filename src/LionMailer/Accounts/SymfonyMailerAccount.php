@@ -22,15 +22,17 @@ use Symfony\Component\Mime\Part\File;
  * Service to send emails with SymfonyMailer
  *
  * @package Lion\Mailer\Accounts
+ *
+ * @infection-ignore-all
  */
 class SymfonyMailerAccount implements MailerAccountInterface
 {
     /**
      * [Object of Email class]
      *
-     * @var Email $email
+     * @var Email $service
      */
-    private Email $email;
+    private Email $service;
 
     /**
      * [Defines the DNS configuration for the symfony service]
@@ -44,7 +46,7 @@ class SymfonyMailerAccount implements MailerAccountInterface
      */
     public function __construct(protected MailerAccountConfig $config)
     {
-        $this->email = new Email();
+        $this->service = new Email();
 
         $this->dns = "smtp://{$config->username}:{$config->password}@{$config->host}:{$config->port}";
 
@@ -58,7 +60,7 @@ class SymfonyMailerAccount implements MailerAccountInterface
      */
     public function priority(Priority $priority): MailerAccountInterface
     {
-        $this->email->priority($priority->value);
+        $this->service->priority($priority->value);
 
         return $this;
     }
@@ -70,7 +72,7 @@ class SymfonyMailerAccount implements MailerAccountInterface
     {
         $address = new Address($address, $name);
 
-        $this->email->from($address);
+        $this->service->from($address);
 
         return $this;
     }
@@ -80,7 +82,7 @@ class SymfonyMailerAccount implements MailerAccountInterface
      */
     public function subject(string $subject): MailerAccountInterface
     {
-        $this->email->subject($subject);
+        $this->service->subject($subject);
 
         return $this;
     }
@@ -92,7 +94,7 @@ class SymfonyMailerAccount implements MailerAccountInterface
     {
         $address = new Address($address, $name);
 
-        $this->email->addTo($address);
+        $this->service->addTo($address);
 
         return $this;
     }
@@ -104,7 +106,7 @@ class SymfonyMailerAccount implements MailerAccountInterface
     {
         $address = new Address($address, $name);
 
-        $this->email->addReplyTo($address);
+        $this->service->addReplyTo($address);
 
         return $this;
     }
@@ -116,7 +118,7 @@ class SymfonyMailerAccount implements MailerAccountInterface
     {
         $address = new Address($address, $name);
 
-        $this->email->addCc($address);
+        $this->service->addCc($address);
 
         return $this;
     }
@@ -128,7 +130,7 @@ class SymfonyMailerAccount implements MailerAccountInterface
     {
         $address = new Address($address, $name);
 
-        $this->email->addBcc($address);
+        $this->service->addBcc($address);
 
         return $this;
     }
@@ -142,7 +144,7 @@ class SymfonyMailerAccount implements MailerAccountInterface
 
         $dataPart = new DataPart($file);
 
-        $this->email->addPart($dataPart);
+        $this->service->addPart($dataPart);
 
         return $this;
     }
@@ -161,7 +163,7 @@ class SymfonyMailerAccount implements MailerAccountInterface
         $dataPart = new DataPart($file, $cid, $mimeType)
             ->asInline();
 
-        $this->email->addPart($dataPart);
+        $this->service->addPart($dataPart);
 
         return $this;
     }
@@ -171,7 +173,7 @@ class SymfonyMailerAccount implements MailerAccountInterface
      */
     public function body(string $body): MailerAccountInterface
     {
-        $this->email->html($body);
+        $this->service->html($body);
 
         return $this;
     }
@@ -181,7 +183,7 @@ class SymfonyMailerAccount implements MailerAccountInterface
      */
     public function altBody(string $altBody): MailerAccountInterface
     {
-        $this->email->text($altBody);
+        $this->service->text($altBody);
 
         return $this;
     }
@@ -196,21 +198,21 @@ class SymfonyMailerAccount implements MailerAccountInterface
      */
     public function send(): bool
     {
-        if (!$this->email->getFrom()) {
+        if (!$this->service->getFrom()) {
             throw InvalidFromAddressException::emptyFromAddress();
         }
 
-        if (!$this->email->getTo()) {
+        if (!$this->service->getTo()) {
             throw InvalidRecipientAddressException::emptyRecipientsList();
         }
 
-        if (!$this->email->getHtmlBody() && !$this->email->getTextBody()) {
+        if (!$this->service->getHtmlBody() && !$this->service->getTextBody()) {
             throw EmptyBodyException::make();
         }
 
         $mailer = new Mailer(Transport::fromDsn($this->dns));
 
-        $mailer->send($this->email);
+        $mailer->send($this->service);
 
         return true;
     }

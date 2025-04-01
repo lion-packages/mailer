@@ -9,11 +9,20 @@ use Lion\Mailer\Accounts\SymfonyMailerAccount;
 
 trait MailerAccountsProviderTrait
 {
+    /**
+     * @return array<int, array{
+     *     mailerService: class-string
+     * }>
+     */
     public static function mailerAccountProvider(): array
     {
         return [
-            [PHPMailerAccount::class],
-            [SymfonyMailerAccount::class],
+            [
+                'mailerService' => PHPMailerAccount::class,
+            ],
+            [
+                'mailerService' => SymfonyMailerAccount::class,
+            ],
         ];
     }
 }
