@@ -20,6 +20,6 @@ class EmptyBodyException extends Exception
      */
     public static function make(): self
     {
-        return new self('message body has not been specified. Use the `body` method to specify the message body');
+        return new self('message body has not been specified. Use the `body` method to specify the message body', 500);
     }
 }

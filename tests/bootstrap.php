@@ -12,4 +12,7 @@ if (!file_exists(__DIR__ . '/../.env')) {
 
 Dotenv::createMutable(__DIR__ . '/../')->load();
 
-define('HOST', $_ENV['MAIL_HOST']);
+/** @var string $host */
+$host = $_ENV['MAIL_HOST'];
+
+define('HOST', $host);

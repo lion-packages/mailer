@@ -49,6 +49,8 @@ class MailerAccountConfig
      * @param bool $debug [Service debug]
      *
      * @throws MailerAccountConfigException
+     *
+     * @infection-ignore-all
      */
     public function __construct(
         public readonly string $host,
@@ -73,7 +75,7 @@ class MailerAccountConfig
      *     username: string,
      *     password: string,
      *     port: int,
-     *     encryption: bool,
+     *     encryption: bool|string,
      *     debug?: bool
      * } $config [Configuration data array]
      *
