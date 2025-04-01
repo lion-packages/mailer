@@ -38,6 +38,7 @@
 
     <testsuites>
         <testsuite name="All-Test">
+            <directory suffix=".php">tests/Exceptions</directory>
             <file>tests/MailerAccountsTest.php</file>
             <file>tests/MailerTest.php</file>
         </testsuite>
