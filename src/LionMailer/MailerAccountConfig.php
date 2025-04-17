@@ -14,7 +14,7 @@ use Lion\Mailer\Exceptions\MailerAccountConfigException;
 class MailerAccountConfig
 {
     /**
-     * [Specify a tls encryption]
+     * Specify a tls encryption
      *
      * @const ENCRYPTION_STARTTLS
      */
