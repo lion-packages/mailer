@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+/*
+ * chore: apply PSR-12 style fixes from StyleCI
+ */
+
 namespace Tests\Exceptions;
 
 use Lion\Mailer\Exceptions\MailerAccountConfigException;

@@ -1,6 +1,8 @@
 <?php
 
-// phpcs:disable PSR1.Files.SideEffects
+/*
+ * chore: apply PSR-12 style fixes from StyleCI
+ */
 
 require_once(__DIR__ . '/../vendor/autoload.php');
 
