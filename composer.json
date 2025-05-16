@@ -3,6 +3,16 @@
     "description": "Library created to facilitate sending email based on different services",
     "type": "library",
     "license": "MIT",
+    "homepage": "https://dev.lion-packages.com/",
+    "keywords": [
+        "lion",
+        "bundle",
+        "lion-mailer"
+    ],
+    "support": {
+        "issues": "https://github.com/lion-packages/mailer/issues",
+        "source": "https://github.com/lion-packages/mailer"
+    },
     "autoload": {
         "psr-4": {
             "Lion\\Mailer\\": "src/LionMailer/"
