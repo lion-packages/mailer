@@ -12,7 +12,7 @@ on:
 
 jobs:
   install-dependencies:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: Install PHP Dependencies
     steps:
       - name: Checkout repository
@@ -43,7 +43,7 @@ jobs:
 
   composer-validation:
     if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: Composer Validation
     needs: install-dependencies
 
@@ -82,7 +82,7 @@ jobs:
 
   dependency-review:
     if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: Dependency Review
     needs: install-dependencies
 
@@ -112,7 +112,7 @@ jobs:
 
   code-analysis-php-stan:
     if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: PHPStan
     needs:
       - composer-validation
@@ -149,7 +149,7 @@ jobs:
 
   code-analysis-php-codesniffer:
     if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: PHPCodeSniffer
     needs:
       - composer-validation
@@ -186,7 +186,7 @@ jobs:
 
   code-analysis-phplint:
     if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: PHPLint
     needs:
       - composer-validation
@@ -222,19 +222,19 @@ jobs:
         run: php -d memory_limit=-1 vendor/bin/phplint tests
 
   tests-phpunit:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: PHPUnit
     needs:
       - code-analysis-php-stan
       - code-analysis-php-codesniffer
       - code-analysis-phplint
 
-    services:
-      mailhog:
-        image: mailhog/mailhog
-        ports:
-          - 8025:8025
-          - 1025:1025
+    # services:
+      # mailhog:
+        # image: mailhog/mailhog
+        # ports:
+          # - 8025:8025
+          # - 1025:1025
 
     steps:
       - name: Checkout repository
@@ -287,19 +287,19 @@ jobs:
 
   tests-infection:
     if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: Infection
     needs:
       - code-analysis-php-stan
       - code-analysis-php-codesniffer
       - code-analysis-phplint
 
-    services:
-      mailhog:
-        image: mailhog/mailhog
-        ports:
-          - 8025:8025
-          - 1025:1025
+    # services:
+      # mailhog:
+        # image: mailhog/mailhog
+        # ports:
+          # - 8025:8025
+          # - 1025:1025
 
     steps:
       - name: Checkout repository
