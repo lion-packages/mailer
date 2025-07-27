@@ -7,14 +7,12 @@ namespace Lion\Mailer\Exceptions;
 use Exception;
 
 /**
- * Exception for emails with empty destination email
- *
- * @package Lion\Mailer\Exceptions
+ * Exception for emails with empty destination email.
  */
 class InvalidRecipientAddressException extends Exception
 {
     /**
-     * Returns an object of type Exception with an error message
+     * Returns an object of type Exception with an error message.
      *
      * @return self
      */

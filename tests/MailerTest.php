@@ -26,7 +26,7 @@ class MailerTest extends Test
     {
         $this->accounts = [
             self::DEFAULT_ => $this::PHPMAILER_TEST_ACCOUNT,
-            self::SUPPORT => $this::SYMFONY_TEST_ACCOUNT
+            self::SUPPORT  => $this::SYMFONY_TEST_ACCOUNT,
         ];
     }
 
@@ -90,7 +90,6 @@ class MailerTest extends Test
 
         $this->assertInstanceOf(MailerAccountInterface::class, Mailer::default());
     }
-
 
     /**
      * @throws MailerAccountConfigException

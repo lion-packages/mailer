@@ -9,25 +9,25 @@ use Lion\Mailer\AccountType;
 trait MailerProviderTrait
 {
     const PHPMAILER_TEST_ACCOUNT = [
-        'name' => 'default',
-        'type' => 'phpmailer',
-        'host' => 'host',
-        'username' => 'username',
-        'password' => 'password',
-        'port' => 495,
+        'name'       => 'default',
+        'type'       => 'phpmailer',
+        'host'       => 'host',
+        'username'   => 'username',
+        'password'   => 'password',
+        'port'       => 495,
         'encryption' => 'tls',
-        'debug' => false
+        'debug'      => false,
     ];
 
     const SYMFONY_TEST_ACCOUNT = [
-        'name' => 'support',
-        'type' => 'symfony',
-        'host' => 'host',
-        'username' => 'username',
-        'password' => 'password',
-        'port' => 495,
+        'name'       => 'support',
+        'type'       => 'symfony',
+        'host'       => 'host',
+        'username'   => 'username',
+        'password'   => 'password',
+        'port'       => 495,
         'encryption' => 'tls',
-        'debug' => false
+        'debug'      => false,
     ];
 
     public static function accountProvider(): array

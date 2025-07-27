@@ -19,26 +19,24 @@ use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Component\Mime\Part\File;
 
 /**
- * Service to send emails with SymfonyMailer
+ * Service to send emails with SymfonyMailer.
  *
- * @property Email $email [Object of Email class]
- * @property string $dns [Defines the DNS configuration for the symfony service]
- *
- * @package Lion\Mailer\Accounts
+ * @property Email  $email [Object of Email class]
+ * @property string $dns   [Defines the DNS configuration for the symfony service]
  */
 class SymfonyMailerAccount implements MailerAccountInterface
 {
     /**
-     * [Object of Email class]
+     * [Object of Email class].
      *
-     * @var Email $email
+     * @var Email
      */
     private Email $email;
 
     /**
-     * [Defines the DNS configuration for the symfony service]
+     * [Defines the DNS configuration for the symfony service].
      *
-     * @var string $dns
+     * @var string
      */
     private string $dns;
 
@@ -53,7 +51,7 @@ class SymfonyMailerAccount implements MailerAccountInterface
 
         $this->dns .= "?encryption=$config->encryption";
 
-        $this->dns .= "&debug=" . ($config->debug ? 'true' : 'false');
+        $this->dns .= '&debug='.($config->debug ? 'true' : 'false');
     }
 
     /**

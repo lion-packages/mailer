@@ -8,24 +8,22 @@ use Lion\Mailer\Accounts\PHPMailerAccount;
 use Lion\Mailer\Accounts\SymfonyMailerAccount;
 
 /**
- * Enumeration for service configuration
- *
- * @package Lion\Mailer
+ * Enumeration for service configuration.
  */
 enum AccountType: string
 {
     /**
-     * [Defines the PHPMailer service]
+     * [Defines the PHPMailer service].
      */
     case PHPMailer = 'phpmailer';
 
     /**
-     * [Defines the SymfonyMailer service]
+     * [Defines the SymfonyMailer service].
      */
     case Symfony = 'symfony';
 
     /**
-     * Returns the defined service
+     * Returns the defined service.
      *
      * @return string
      */
@@ -33,7 +31,7 @@ enum AccountType: string
     {
         return match ($this) {
             AccountType::PHPMailer => PHPMailerAccount::class,
-            AccountType::Symfony => SymfonyMailerAccount::class,
+            AccountType::Symfony   => SymfonyMailerAccount::class,
         };
     }
 }

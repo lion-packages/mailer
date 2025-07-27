@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Lion\Mailer\Priority;
-use Lion\Mailer\MailerAccountInterface;
 use Lion\Mailer\Exceptions\EmptyBodyException;
-use Lion\Mailer\MailerAccountConfig;
 use Lion\Mailer\Exceptions\InvalidFromAddressException;
 use Lion\Mailer\Exceptions\InvalidRecipientAddressException;
 use Lion\Mailer\Exceptions\MailerAccountConfigException;
+use Lion\Mailer\MailerAccountConfig;
+use Lion\Mailer\MailerAccountInterface;
+use Lion\Mailer\Priority;
 use Lion\Test\Test;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Provider\MailerAccountsProviderTrait;
@@ -20,12 +20,12 @@ class MailerAccountsTest extends Test
     use MailerAccountsProviderTrait;
 
     const array CONFIG = [
-        'host' => 'mailhog',
-        'username' => 'username@examplfe.com',
-        'password' => 'password',
-        'port' => 1025,
+        'host'       => 'mailhog',
+        'username'   => 'username@examplfe.com',
+        'password'   => 'password',
+        'port'       => 1025,
         'encryption' => false,
-        'debug' => false
+        'debug'      => false,
     ];
     const string TEST = 'test';
     const string SUBJECT = 'Test Email';
@@ -190,7 +190,7 @@ class MailerAccountsTest extends Test
             ->from(self::FROM_EMAIL, self::FROM_NAME)
             ->addAddress(self::ADDRESS_EMAIL, self::ADDRESS_NAME)
             ->body(self::BODY)
-            ->addAttachment(__DIR__ . '/support/test_file.txt', 'Test File');
+            ->addAttachment(__DIR__.'/support/test_file.txt', 'Test File');
 
         $this->assertTrue($mailer->send());
     }
@@ -203,11 +203,11 @@ class MailerAccountsTest extends Test
             ->from(self::FROM_EMAIL, self::FROM_NAME)
             ->addAddress(self::ADDRESS_EMAIL, self::ADDRESS_NAME)
             ->body(
-                <<<HTML
+                <<<'HTML'
                 <img src="cid:image1" alt="Embedded Image">
                 HTML
             )
-            ->addEmbeddedImage(__DIR__ . '/support/test_image.jpg', 'image1', 'image.jpg');
+            ->addEmbeddedImage(__DIR__.'/support/test_image.jpg', 'image1', 'image.jpg');
 
         $this->assertTrue($mailer->send());
     }

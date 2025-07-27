@@ -7,14 +7,12 @@ namespace Lion\Mailer\Exceptions;
 use Exception;
 
 /**
- * Defines the Exception type objects for the mail configuration
- *
- * @package Lion\Mailer\Exceptions
+ * Defines the Exception type objects for the mail configuration.
  */
 class MailerAccountConfigException extends Exception
 {
     /**
-     * Returns an object of type Exception with an error message
+     * Returns an object of type Exception with an error message.
      *
      * @return self
      */
@@ -24,7 +22,7 @@ class MailerAccountConfigException extends Exception
     }
 
     /**
-     * Returns an object of type Exception with an error message
+     * Returns an object of type Exception with an error message.
      *
      * @return self
      */
@@ -36,9 +34,9 @@ class MailerAccountConfigException extends Exception
     }
 
     /**
-     * Returns an object of type Exception with an error message
+     * Returns an object of type Exception with an error message.
      *
-     * @param  string $name [Configured account name]
+     * @param string $name [Configured account name]
      *
      * @return self
      */
@@ -48,7 +46,7 @@ class MailerAccountConfigException extends Exception
     }
 
     /**
-     * Returns an object of type Exception with an error message
+     * Returns an object of type Exception with an error message.
      *
      * @return self
      */
@@ -58,7 +56,7 @@ class MailerAccountConfigException extends Exception
     }
 
     /**
-     * Returns an object of type Exception with an error message
+     * Returns an object of type Exception with an error message.
      *
      * @return self
      */

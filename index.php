@@ -1,6 +1,6 @@
 <?php
 
-require_once('./vendor/autoload.php');
+require_once './vendor/autoload.php';
 
 header('Content-Type: application/json');
 
@@ -9,14 +9,14 @@ use Lion\Mailer\Priority;
 
 Mailer::initialize([
     'lion-mailer' => [
-        'name' => 'lion-mailer',
-        'type' => 'phpmailer',
-        'host' => 'mailhog',
-        'username' => 'root@dev.com',
-        'password' => 'lion',
-        'port' => 1025,
+        'name'       => 'lion-mailer',
+        'type'       => 'phpmailer',
+        'host'       => 'mailhog',
+        'username'   => 'root@dev.com',
+        'password'   => 'lion',
+        'port'       => 1025,
         'encryption' => false,
-        'debug' => false
+        'debug'      => false,
     ],
 ], 'lion-mailer');
 
@@ -27,5 +27,5 @@ echo json_encode([
         ->addAddress('jjerez@dev.com', 'Jjerez')
         ->body('Send Mailer')
         ->priority(Priority::HIGH)
-        ->send()
+        ->send(),
 ]);

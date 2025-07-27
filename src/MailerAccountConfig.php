@@ -7,35 +7,33 @@ namespace Lion\Mailer;
 use Lion\Mailer\Exceptions\MailerAccountConfigException;
 
 /**
- * Create email account settings
+ * Create email account settings.
  *
- * @property string $host [Service host]
- * @property string $username [Account username]
- * @property string $password [Account password]
- * @property int $port [Service port]
+ * @property string $host       [Service host]
+ * @property string $username   [Account username]
+ * @property string $password   [Account password]
+ * @property int    $port       [Service port]
  * @property string $encryption [Account encryption]
- * @property bool $debug [Service debug]
- *
- * @package Lion\Mailer
+ * @property bool   $debug      [Service debug]
  */
 class MailerAccountConfig
 {
     /**
-     * [Specify a tls encryption]
+     * [Specify a tls encryption].
      *
      * @const ENCRYPTION_STARTTLS
      */
     public const string ENCRYPTION_STARTTLS = 'tls';
 
     /**
-     * [Specify a ssl encryption]
+     * [Specify a ssl encryption].
      *
      * @const ENCRYPTION_SMTPS
      */
     public const string ENCRYPTION_SMTPS = 'ssl';
 
     /**
-     * [List of available encryption's]
+     * [List of available encryption's].
      *
      * @const ENCRYPTION
      */
@@ -46,14 +44,14 @@ class MailerAccountConfig
     ];
 
     /**
-     * Class constructor
+     * Class constructor.
      *
-     * @param string $host [Service host]
-     * @param string $username [Account username]
-     * @param string $password [Account password]
-     * @param int $port [Service port]
+     * @param string      $host       [Service host]
+     * @param string      $username   [Account username]
+     * @param string      $password   [Account password]
+     * @param int         $port       [Service port]
      * @param bool|string $encryption [Account encryption]
-     * @param bool $debug [Service debug]
+     * @param bool        $debug      [Service debug]
      *
      * @throws MailerAccountConfigException
      */
@@ -71,13 +69,13 @@ class MailerAccountConfig
     }
 
     /**
-     * Create the configuration object from an array
+     * Create the configuration object from an array.
      *
      * @param array $config [Configuration data array]
      *
-     * @return self
-     *
      * @throws MailerAccountConfigException
+     *
+     * @return self
      */
     public static function fromArray(array $config): self
     {

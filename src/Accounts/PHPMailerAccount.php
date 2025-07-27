@@ -14,19 +14,17 @@ use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 
 /**
- * Service to send emails with PHPMailer
+ * Service to send emails with PHPMailer.
  *
  * @property PHPMailer $mailer [PHPMailer - PHP email creation and transport
- * class]
- *
- * @package Lion\Mailer\Accounts
+ *                             class]
  */
 class PHPMailerAccount implements MailerAccountInterface
 {
     /**
-     * [PHPMailer - PHP email creation and transport class]
+     * [PHPMailer - PHP email creation and transport class].
      *
-     * @var PHPMailer $mailer
+     * @var PHPMailer
      */
     private PHPMailer $mailer;
 

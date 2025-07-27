@@ -9,38 +9,36 @@ use Lion\Mailer\Accounts\SymfonyMailerAccount;
 use Lion\Mailer\Exceptions\MailerAccountConfigException;
 
 /**
- * Initializes all services and their defined configurations
+ * Initializes all services and their defined configurations.
  *
- * @property array $accounts [List of all defined accounts]
- * @property string $default [Default account]
- *
- * @package Lion\Mailer
+ * @property array  $accounts [List of all defined accounts]
+ * @property string $default  [Default account]
  */
 class Mailer
 {
     /**
-     * [List of all defined accounts]
+     * [List of all defined accounts].
      *
-     * @var array $accounts
+     * @var array
      */
     private static array $accounts;
 
     /**
-     * [Default account]
+     * [Default account].
      *
-     * @var string $default
+     * @var string
      */
     private static string $default;
 
     /**
-     * Initialize account settings
+     * Initialize account settings.
      *
-     * @param array $accounts [List of all defined accounts]
-     * @param string $default [Default account]
-     *
-     * @return void
+     * @param array  $accounts [List of all defined accounts]
+     * @param string $default  [Default account]
      *
      * @throws MailerAccountConfigException
+     *
+     * @return void
      */
     public static function initialize(array $accounts, string $default = 'default'): void
     {
@@ -66,11 +64,11 @@ class Mailer
     }
 
     /**
-     * Returns a service defined by default
-     *
-     * @return MailerAccountInterface
+     * Returns a service defined by default.
      *
      * @throws MailerAccountConfigException
+     *
+     * @return MailerAccountInterface
      */
     public static function default(): MailerAccountInterface
     {
@@ -78,13 +76,13 @@ class Mailer
     }
 
     /**
-     * Change the default account to the defined account
+     * Change the default account to the defined account.
      *
      * @param string $name [Default account]
      *
-     * @return void
-     *
      * @throws MailerAccountConfigException
+     *
+     * @return void
      */
     public static function setDefault(string $name): void
     {
@@ -96,14 +94,14 @@ class Mailer
     }
 
     /**
-     * Add an account
+     * Add an account.
      *
-     * @param string $name [Account name]
-     * @param array $config [Configuration data for the account]
-     *
-     * @return void
+     * @param string $name   [Account name]
+     * @param array  $config [Configuration data for the account]
      *
      * @throws MailerAccountConfigException
+     *
+     * @return void
      */
     public static function addAccount(string $name, array $config): void
     {
@@ -112,20 +110,20 @@ class Mailer
         }
 
         self::$accounts[$name] = [
-            'name' => $config['name'],
-            'type' => $config['type'],
+            'name'   => $config['name'],
+            'type'   => $config['type'],
             'config' => MailerAccountConfig::fromArray($config),
         ];
     }
 
     /**
-     * Get an account
+     * Get an account.
      *
      * @param string $name [Account name]
      *
-     * @return MailerAccountInterface
-     *
      * @throws MailerAccountConfigException
+     *
+     * @return MailerAccountInterface
      */
     public static function account(string $name): MailerAccountInterface
     {
@@ -133,8 +131,8 @@ class Mailer
 
         return match ($account['type']) {
             'phpmailer' => new PHPMailerAccount($account['config']),
-            'symfony' => new SymfonyMailerAccount($account['config']),
-            default => throw MailerAccountConfigException::accountNotFound($name),
+            'symfony'   => new SymfonyMailerAccount($account['config']),
+            default     => throw MailerAccountConfigException::accountNotFound($name),
         };
     }
 }
