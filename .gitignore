@@ -3,5 +3,4 @@
 /tests/build/
 /.phplint.cache/
 .phpunit.result.cache
-composer.lock
 .env

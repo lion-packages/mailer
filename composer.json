@@ -3,10 +3,10 @@
     "description": "Library created to facilitate sending email based on different services",
     "type": "library",
     "license": "MIT",
-    "homepage": "https://dev.lion-packages.com/",
+    "homepage": "https://dev.lion-packages.com",
     "keywords": [
         "lion",
-        "bundle",
+        "mailer",
         "lion-mailer"
     ],
     "support": {
