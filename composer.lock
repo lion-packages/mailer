@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9a14f750174934860da6f9314a812fea",
+    "content-hash": "98ca6d4711b8ba0955941192d6f469a2",
     "packages": [],
     "packages-dev": [
         {
@@ -945,21 +945,21 @@
         },
         {
             "name": "lion/test",
-            "version": "v3.13.0",
+            "version": "v4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lion-packages/test.git",
-                "reference": "18136f6172194469eeb94f3c6731aba000b35876"
+                "reference": "87bfdf9dd80b9c4918c025e850e286f0272045fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lion-packages/test/zipball/18136f6172194469eeb94f3c6731aba000b35876",
-                "reference": "18136f6172194469eeb94f3c6731aba000b35876",
+                "url": "https://api.github.com/repos/lion-packages/test/zipball/87bfdf9dd80b9c4918c025e850e286f0272045fa",
+                "reference": "87bfdf9dd80b9c4918c025e850e286f0272045fa",
                 "shasum": ""
             },
             "require": {
                 "ext-gd": "*",
-                "php": ">=8.4"
+                "php": ">=8.5"
             },
             "require-dev": {
                 "infection/infection": "^0.29.14 || ^0.31.0",
@@ -979,7 +979,7 @@
             "license": [
                 "MIT"
             ],
-            "description": "Library to implement testing with helpers that allow easy testing with PHPUnit",
+            "description": "Library to implement testing with helpers that allow easy testing with PHPUnit.",
             "homepage": "https://dev.lion-packages.com",
             "keywords": [
                 "lion",
@@ -990,7 +990,7 @@
                 "issues": "https://github.com/lion-packages/test/issues",
                 "source": "https://github.com/lion-packages/test"
             },
-            "time": "2025-11-28T22:41:32+00:00"
+            "time": "2025-12-21T23:48:23+00:00"
         },
         {
             "name": "marc-mabe/php-enum",
@@ -5795,8 +5795,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.4"
+        "php": ">=8.5"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
