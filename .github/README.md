@@ -1,14 +1,4 @@
-# 🦁 Lion-Mailer
-
-<p align="center">
-  <a href="https://dev.lion-packages.com/docs/library/content" target="_blank">
-    <img 
-        src="https://github.com/lion-packages/framework/assets/56183278/60871c9f-1c93-4481-8c1e-d70282b33254"
-        width="450" 
-        alt="Lion-Packages Logo"
-    >
-  </a>
-</p>
+<img width="1920" height="1080" alt="presentation-lion-packages" src="https://github.com/user-attachments/assets/243ac523-9486-4213-8b48-dfe2bb8a557f" />
 
 <p align="center">
   <a href="https://packagist.org/packages/lion/mailer">
