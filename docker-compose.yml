@@ -1,6 +1,6 @@
 services:
-    app:
-        container_name: mailer-app
+    php:
+        container_name: mailer-php
         build:
             context: .
             dockerfile: Dockerfile
